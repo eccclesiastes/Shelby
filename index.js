@@ -56,6 +56,31 @@ client.on('ready', () => {
                 required: true,
                 type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
             },
+            {
+                name: 'reason',
+                description: 'Reason for the ban.',
+                required: false,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
+            },
+        ],
+    })
+
+    commands?.create({
+        name: 'kick',
+        description: 'Kicks a user.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to kick.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
+            },
+            {
+                name: 'reason',
+                description: 'Reason for the kick.',
+                required: false,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
+            },
         ],
     })
 });
@@ -94,19 +119,35 @@ client.on('interactionCreate', async (interaction) => {
         });
     } else if (commandName === 'ban') {
         const memberTarger = options.getMember('user');
+        const reasonTarger = options.getString('reason') || 'No reason provided.';
 
-        const embed = new DiscordJS.MessageEmbed()
-            .setColor('#2f3136')
-            .setTitle('Member banned')
-            .setDescription(`⛔ ${memberTarger} has been banned! ⛔`)
+           const embed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Member banned')
+                .setDescription(`⛔ **| ${memberTarger} has been banned | ${reasonTarger} |** ⛔`);
 
-        await interaction.guild.members.ban(memberTarger.id);
+        await interaction.guild.members.ban(memberTarger.id, {reason: reasonTarger});
 
         await interaction.reply({ 
             embeds: [embed], 
             ephemeral: true,
         });
-    };
+    } else if (commandName === 'kick') {
+        const memberTarger = options.getMember('user');
+        const reasonTarger = options.getString('reason') || 'No reason provided.';
+
+        const embed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Member kicked')
+                .setDescription(`⛔ **| ${memberTarger} has been kicked | ${reasonTarger} |** ⛔`);
+
+        await interaction.guild.members.kick(memberTarger.id, reasonTarger);
+
+        await interaction.reply({
+            embeds: [embed],
+            ephemeral: true,
+        });
+    }
 });
 
 

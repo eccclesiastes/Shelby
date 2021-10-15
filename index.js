@@ -147,9 +147,24 @@ client.on('interactionCreate', async (interaction) => {
             embeds: [embed],
             ephemeral: true,
         });
-    }
+    } 
 });
 
+const join = '898587285111603221';
+
+client.on('guildCreate', async (guild) => {
+    const owner = await guild.fetchOwner().then(u => u.user.tag); 
+
+    const embed = new DiscordJS.MessageEmbed()
+        .setTitle('\:white_check_mark: Invited to server')
+        .setColor('#2f3136')
+        .addField(`Name`, `\n ${guild.name}\n`, true)
+        .addField(`ID`, `\n ${guild.id}\n`, true)
+        .addField(`Owner`, `\n ${guild.ownerId} | ${owner}\n`, true)
+        .addField(`Members`, `\n ${guild.memberCount}\n`)
+
+    client.channels.cache.get(join).send({embeds: [embed] });
+    });
 
 
 client.login(process.env.TOKEN);

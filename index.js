@@ -1,4 +1,4 @@
-import DiscordJS, { Intents } from 'discord.js';
+import DiscordJS, { Intents, MessageEmbed } from 'discord.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -44,7 +44,20 @@ client.on('ready', () => {
                 type: DiscordJS.Constants.ApplicationCommandOptionTypes.NUMBER,
             },
         ],
-    });
+    })
+
+    commands?.create({
+        name: 'ban',
+        description: 'Bans a member.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to ban.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
+            },
+        ],
+    })
 });
 
     
@@ -78,6 +91,20 @@ client.on('interactionCreate', async (interaction) => {
 
         await interaction.editReply({
             content: `The sum is ${num1 + num2}`,
+        });
+    } else if (commandName === 'ban') {
+        const memberTarger = options.getMember('user');
+
+        const embed = new DiscordJS.MessageEmbed()
+            .setColor('#2f3136')
+            .setTitle('Member banned')
+            .setDescription(`⛔ ${memberTarger} has been banned! ⛔`)
+
+        await interaction.guild.members.ban(memberTarger.id);
+
+        await interaction.reply({ 
+            embeds: [embed], 
+            ephemeral: true,
         });
     };
 });

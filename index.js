@@ -1,5 +1,6 @@
-import DiscordJS, { Intents, MessageEmbed } from 'discord.js';
+import DiscordJS, { Guild, Intents, MessageEmbed } from 'discord.js';
 import dotenv from 'dotenv';
+import ms from 'ms';
 dotenv.config();
 
 const client = new DiscordJS.Client({
@@ -11,11 +12,12 @@ const client = new DiscordJS.Client({
 
 client.on('ready', () => {
     console.log('Bot is online.');
+    
 
     const guildId = '898229423336218645';
     const guild = client.guilds.cache.get(guildId);
     let commands 
-
+    
     if (guild) {
         commands = guild.commands;
     } else {
@@ -83,6 +85,31 @@ client.on('ready', () => {
             },
         ],
     })
+
+    commands?.create({
+        name: 'mute',
+        description: 'Mutes a user.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to mute.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
+            },
+            {
+                name: 'reason',
+                description: 'Reason for the mute.',
+                required: false,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
+            },
+            {
+                name: 'time',
+                description: 'Time for the mute to last.',
+                require: false,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
+            },
+        ],
+    })
 });
 
     
@@ -124,7 +151,7 @@ client.on('interactionCreate', async (interaction) => {
            const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setTitle('Member banned')
-                .setDescription(`⛔ **| ${memberTarger} has been banned | ${reasonTarger} |** ⛔`);
+                .setDescription(`⛔ **| ${memberTarger} has been banned: ${reasonTarger} |** ⛔`);
 
         await interaction.guild.members.ban(memberTarger.id, {reason: reasonTarger});
 
@@ -139,7 +166,7 @@ client.on('interactionCreate', async (interaction) => {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setTitle('Member kicked')
-                .setDescription(`⛔ **| ${memberTarger} has been kicked | ${reasonTarger} |** ⛔`);
+                .setDescription(`⛔ **| ${memberTarger} has been kicked: ${reasonTarger} |** ⛔`);
 
         await interaction.guild.members.kick(memberTarger.id, reasonTarger);
 
@@ -147,7 +174,36 @@ client.on('interactionCreate', async (interaction) => {
             embeds: [embed],
             ephemeral: true,
         });
-    } 
+    } else if (commandName === 'mute') {
+        const memberTarger = options.getMember('user');
+        const reasonTarger = options.getString('reason') || 'No reason provided.';
+        const timeTarger = options.getString('time'); 
+        const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted');
+
+        const embed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Member muted')
+                .setDescription(`⛔ **| ${memberTarger} has been muted: ${reasonTarger} |** ⛔`)
+
+        if (!timeTarger) {
+            memberTarger.roles.add(muteRole.id);
+            interaction.reply({
+                embeds: [embed],
+                ephemeral: true,
+            });
+            return;
+        } 
+        memberTarger.roles.add(muteRole.id);
+
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true,
+        });
+
+        setTimeout(() => {
+            memberTarger.roles.remove(muteRole.id);
+        }, ms(timeTarger));
+    }
 });
 
 const join = '898587285111603221';

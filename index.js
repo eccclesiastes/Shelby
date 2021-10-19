@@ -30,25 +30,6 @@ client.on('ready', () => {
     })
 
     commands?.create({
-        name: 'add',
-        description: 'Adds two numbers.',
-        options: [
-            {
-                name: 'num1',
-                description: 'The first number.',
-                required: true,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.NUMBER
-            },
-            {
-                name: 'num2',
-                description: 'The second number.',
-                required: true,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.NUMBER,
-            },
-        ],
-    })
-
-    commands?.create({
         name: 'ban',
         description: 'Bans a member.',
         options: [
@@ -110,6 +91,11 @@ client.on('ready', () => {
             },
         ],
     })
+
+    commands?.create({
+        name: 'about',
+        description: 'About this bot.',
+    })
 });
 
     
@@ -132,17 +118,6 @@ client.on('interactionCreate', async (interaction) => {
         interaction.reply({
             content: 'Pong!',
             ephemeral: true,
-        });
-    } else if (commandName === 'add') {
-        const num1 = options.getNumber('num1');
-        const num2 = options.getNumber('num2');
-
-        await interaction.deferReply({
-            ephemeral: true,
-        });
-
-        await interaction.editReply({
-            content: `The sum is ${num1 + num2}`,
         });
     } else if (commandName === 'ban') {
         const memberTarger = options.getMember('user');
@@ -203,6 +178,17 @@ client.on('interactionCreate', async (interaction) => {
         setTimeout(() => {
             memberTarger.roles.remove(muteRole.id);
         }, ms(timeTarger));
+    } else if (commandName === 'about') {
+        const embed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('About ')
+                .setDescription('-- is a **moderation dedicated** bot which uses purely **ephemeral slash commands** to provide a completely **"invisible"** experience to normal users, while still being of great use to moderators. Start your **better moderation experience** by interacting with the buttons below to **invite** me.')
+                .setFooter('Made with <3 by dceu#0001')
+
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true,
+        });
     }
 });
 

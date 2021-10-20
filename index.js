@@ -1,6 +1,9 @@
-import DiscordJS, { Guild, Intents, MessageEmbed } from 'discord.js';
+import DiscordJS, { Guild, Intents, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
+import WOKCommands from 'wokcommands';
+import path from 'path';
 import dotenv from 'dotenv';
 import ms from 'ms';
+import { link } from 'fs';
 dotenv.config();
 
 const client = new DiscordJS.Client({
@@ -13,7 +16,6 @@ const client = new DiscordJS.Client({
 client.on('ready', () => {
     console.log('Bot is online.');
     
-
     const guildId = '898229423336218645';
     const guild = client.guilds.cache.get(guildId);
     let commands 
@@ -95,6 +97,44 @@ client.on('ready', () => {
     commands?.create({
         name: 'about',
         description: 'About this bot.',
+    })
+
+    commands?.create({
+        name: 'unmute',
+        description: 'Unmute a user.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to unmute.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
+            },
+            {
+                name: 'reason',
+                description: 'Reason for the unmute.',
+                required: false,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
+            },
+        ],
+    })
+
+    commands?.create({
+        name: 'unban',
+        description: 'Unban a user.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to unban.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
+            },
+            {
+                name: 'reason',
+                description: 'Reason for the unban.',
+                required: false,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
+            },
+        ],
     })
 });
 
@@ -184,6 +224,31 @@ client.on('interactionCreate', async (interaction) => {
                 .setTitle('About ')
                 .setDescription('-- is a **moderation dedicated** bot which uses purely **ephemeral slash commands** to provide a completely **"invisible"** experience to normal users, while still being of great use to moderators. Start your **better moderation experience** by interacting with the buttons below to **invite** me.')
                 .setFooter('Made with <3 by dceu#0001')
+
+        const linkRow = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setURL('https://discord.com/api/oauth2/authorize?client_id=898229527761788990&permissions=8&scope=bot%20applications.commands')
+                    .setLabel('Invite me!')
+                    .setStyle('LINK')
+            )
+
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true,
+            components: [linkRow],
+        });
+    } else if (commandName === 'unmute') {
+        const memberTarger = options.getMember('user');
+        const reasonTarger = options.getString('reason') || 'No reason provided.';
+        const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted');
+
+        const embed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Member unmuted')
+                .setDescription(`⛔ **| ${memberTarger} has been unmuted: ${reasonTarger} |** ⛔`)
+
+        memberTarger.roles.remove(muteRole.id);
 
         interaction.reply({
             embeds: [embed],

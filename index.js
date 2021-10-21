@@ -33,7 +33,7 @@ client.on('ready', () => {
 
     commands?.create({
         name: 'ping',
-        description: 'Replies with pong.',
+        description: 'Shows the ping of the bot.',
     })
 
     commands?.create({
@@ -160,8 +160,14 @@ client.on('interactionCreate', async (interaction) => {
     const { commandName, options } = interaction;
 
     if (commandName === 'ping') {
-        interaction.reply({
-            content: 'Pong!',
+        const msg = await interaction.reply({
+            content: '🏓 Pong!',
+            ephemeral: true,
+            fetchReply: true, 
+        });
+
+        interaction.editReply({
+            content: `🏓 Pong! \`${Date.now() - msg.createdTimestamp}ms\``,
             ephemeral: true,
         });
     } else if (commandName === 'ban') {

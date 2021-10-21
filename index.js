@@ -13,6 +13,11 @@ const client = new DiscordJS.Client({
     ]
 });
 
+const rejected = new DiscordJS.MessageEmbed()
+            .setColor('#2f3136')
+            .setTitle('Unable to take action')
+            .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
+
 client.on('ready', () => {
     console.log('Bot is online.');
     
@@ -123,10 +128,10 @@ client.on('ready', () => {
         description: 'Unban a user.',
         options: [
             {
-                name: 'user',
-                description: 'The user to unban.',
+                name: 'userid',
+                description: 'The ID of the user to unban.',
                 required: true,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
             },
             {
                 name: 'reason',
@@ -162,33 +167,87 @@ client.on('interactionCreate', async (interaction) => {
     } else if (commandName === 'ban') {
         const memberTarger = options.getMember('user');
         const reasonTarger = options.getString('reason') || 'No reason provided.';
+        const owner = interaction.guild.fetchOwner();
+        const getOwner = (await owner).id;
 
            const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setTitle('Member banned')
                 .setDescription(`⛔ **| ${memberTarger} has been banned: ${reasonTarger} |** ⛔`);
 
-        await interaction.guild.members.ban(memberTarger.id, {reason: reasonTarger});
+            const actionTaken = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setDescription(`⛔ **| You have been banned from ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
+
+        if (memberTarger.roles.highest.position >= interaction.guild.me.roles.highest.position || memberTarger.id === getOwner) {
+                interaction.reply({
+                    embeds: [rejected],
+                    ephemeral: true,
+                }).catch(() => {
+                    interaction.followUp({
+                        content: `Unknown error.`,
+                        ephemeral: true,
+                    });
+                });
+            } else {
+        await memberTarger.send({ embeds: [actionTaken] }).catch(() => {
+            interaction.followUp({
+                content: `Error to DM user, ban still executed.`,
+                ephemeral: true,
+            });
+        });
+
+        await interaction.guild.members.ban(memberTarger.id, {reason: reasonTarger}).catch(() => {
+            return;
+        });
 
         await interaction.reply({ 
             embeds: [embed], 
             ephemeral: true,
-        });
+            });
+        }
     } else if (commandName === 'kick') {
         const memberTarger = options.getMember('user');
         const reasonTarger = options.getString('reason') || 'No reason provided.';
+        const owner = interaction.guild.fetchOwner();
+        const getOwner = (await owner).id;
 
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setTitle('Member kicked')
                 .setDescription(`⛔ **| ${memberTarger} has been kicked: ${reasonTarger} |** ⛔`);
 
-        await interaction.guild.members.kick(memberTarger.id, reasonTarger);
+        const actionTaken = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setDescription(`⛔ **| You have been kicked from ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
+
+        if (memberTarger.roles.highest.position >= interaction.guild.me.roles.highest.position || memberTarger.id === getOwner) {
+            interaction.reply({
+                embeds: [rejected],
+                ephemeral: true,
+            }).catch(() => {
+                interaction.followUp({
+                    content: `Unknow error.`,
+                    ephemeral: true,
+                });
+            });
+        } else {
+        await memberTarger.send({ embeds: [actionTaken] }).catch(() => {
+            interaction.followUp({
+                content: `Error to DM user, kick still executed.`,
+                ephemeral: true,
+            });
+        });
+
+        await interaction.guild.members.kick(memberTarger.id, {reason: reasonTarger}).catch(() => {
+            return;
+        });
 
         await interaction.reply({
             embeds: [embed],
             ephemeral: true,
-        });
+            });
+        };   
     } else if (commandName === 'mute') {
         const memberTarger = options.getMember('user');
         const reasonTarger = options.getString('reason') || 'No reason provided.';
@@ -199,6 +258,12 @@ client.on('interactionCreate', async (interaction) => {
                 .setColor('#2f3136')
                 .setTitle('Member muted')
                 .setDescription(`⛔ **| ${memberTarger} has been muted: ${reasonTarger} |** ⛔`)
+
+        const actionTaken = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setDescription(`⛔ **| You have been muted in ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
+
+        await memberTarger.send({ embeds: [actionTaken] });
 
         if (!timeTarger) {
             memberTarger.roles.add(muteRole.id);
@@ -254,7 +319,35 @@ client.on('interactionCreate', async (interaction) => {
             embeds: [embed],
             ephemeral: true,
         });
-    }
+    } else if (commandName === 'unban') {
+        try {
+        const memberTarger = options.getString('userid');
+        const reasonTarger = options.getString('reason') || 'No reason provided.';
+        let user = await client.users.fetch(memberTarger);
+
+        const embed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Member unbanned')
+                .setDescription(`⛔ **| ${user.tag} has been unbanned: ${reasonTarger} |** ⛔`)
+
+        interaction.guild.members.unban(memberTarger).then(() => {
+            interaction.reply({
+                embeds: [embed],
+                ephemeral: true,
+            });
+        });
+    } catch (error) {
+        const invalid = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Unable to unban')
+                .setDescription(`❌ **| Please provide a valid member to unban. |** ❌`)
+
+        interaction.reply({
+            embeds: [invalid],
+            ephemeral: true,
+        });
+    };
+    };
 });
 
 const join = '898587285111603221';

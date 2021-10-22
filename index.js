@@ -154,6 +154,31 @@ client.on('ready', () => {
             },
         ],
     })
+
+    commands?.create({
+        name: 'role',
+        description: 'Adds or removes a role to a user.',
+        options: [
+            {
+                name: 'user',
+                description: 'Add or remove a user to a role.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
+            },
+            {
+                name: 'role',
+                description: 'The role which is being given/removed.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.ROLE
+            }, 
+            {
+                name: 'reason',
+                description: 'The reason the role is being added/removed.',
+                required: false,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
+            },
+        ],
+    })
 });
 
     
@@ -414,7 +439,49 @@ client.on('interactionCreate', async (interaction) => {
             ephemeral: true,
         });
     };
-    }
+    } else if (commandName === 'role') {
+        try {
+        const memberTarger = options.getMember('user');
+        const roleTarger = options.getRole('role');
+        const reasonTarger = options.getString('reason') || 'No reason provided.';
+
+        const addedEmbed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Role added')
+                .setDescription(`⛔ **| ${memberTarger} has been added to the role ${roleTarger}: ${reasonTarger} |** ⛔`)
+
+        const removedEmbed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Role removed')
+                .setDescription(`⛔ **| ${memberTarger} has been removed from the role ${roleTarger}: ${reasonTarger} |** ⛔`)
+
+        if (!memberTarger.roles.cache.has(roleTarger.id)) {
+            await memberTarger.roles.add(roleTarger.id);
+
+            interaction.reply({
+                embeds: [addedEmbed],
+                ephemeral: true,
+            });
+        } else if (memberTarger.roles.cache.has(roleTarger.id)) {
+            await memberTarger.roles.remove(roleTarger.id);
+
+            interaction.reply({
+                embeds: [removedEmbed],
+                ephemeral: true,
+            });
+        };
+    } catch (err) {
+        const errorEmbed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Unable to add/remove role')
+                .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the role being added/removed. |** ❌`)
+
+        interaction.reply({
+            embeds: [errorEmbed],
+            ephemeral: true,
+        });
+        };
+    };
 });
 
 const join = '898587285111603221';

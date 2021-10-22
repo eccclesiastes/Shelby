@@ -282,6 +282,12 @@ client.on('interactionCreate', async (interaction) => {
                 .setColor('#2f3136')
                 .setDescription(`⛔ **| You have been muted in ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
 
+        const alreadyMuted = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setDescription(`❌ **| This member is already muted. |** ❌`)
+
+        if (!memberTarger.roles.cache.has(muteRole.id)) {
+
         await memberTarger.send({ embeds: [actionTaken] });
 
         if (!timeTarger) {
@@ -302,6 +308,12 @@ client.on('interactionCreate', async (interaction) => {
         setTimeout(() => {
             memberTarger.roles.remove(muteRole.id);
         }, ms(timeTarger));
+    } else {
+        interaction.reply({
+            embeds: [alreadyMuted],
+            ephemeral: true,
+        });
+    };
     } else if (commandName === 'about') {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
@@ -332,12 +344,24 @@ client.on('interactionCreate', async (interaction) => {
                 .setTitle('Member unmuted')
                 .setDescription(`⛔ **| ${memberTarger} has been unmuted: ${reasonTarger} |** ⛔`)
 
+        const alreadyUnmuted = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setDescription(`❌ **| This member is already unmuted. |** ❌`)
+
+        if (memberTarger.roles.cache.has(muteRole.id)) {
+
         memberTarger.roles.remove(muteRole.id);
 
-        interaction.reply({
-            embeds: [embed],
-            ephemeral: true,
-        });
+            interaction.reply({
+                embeds: [embed],
+                ephemeral: true,
+            });
+        } else {
+            interaction.reply({
+                embeds: [alreadyUnmuted],
+                ephemeral: true,
+            });
+        };
     } else if (commandName === 'unban') {
         try {
         const memberTarger = options.getString('userid');

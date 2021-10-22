@@ -179,6 +179,25 @@ client.on('ready', () => {
             },
         ],
     })
+
+    commands?.create({
+        name: 'warn',
+        description: 'Warns a user by DMing them.',
+        options: [
+            {
+                name: 'user',
+                description: 'The user to be warned.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
+            },
+            {
+                name: 'reason',
+                description: 'Reason for the warn.',
+                required: false,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
+            },
+        ],
+    })
 });
 
     
@@ -481,7 +500,39 @@ client.on('interactionCreate', async (interaction) => {
             ephemeral: true,
         });
         };
+    } else if (commandName === 'warn') {
+        try {
+        const memberTarger = options.getMember('user');
+        const reasonTarger = options.getString('reason') || 'No reason provided.';
+
+        const modEmbed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('User warned')
+                .setDescription(`⛔ **| ${memberTarger} has been warned for: ${reasonTarger} |** ⛔`)
+
+        const userEmbed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setDescription(`⛔ **| You have been warned in ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
+        
+        interaction.reply({
+            embeds: [modEmbed],
+            ephemeral: true,
+        });
+
+        memberTarger.send({ embeds: [userEmbed] }).catch(() => {
+            interaction.followUp({
+                content: `Unable to DM user.`,
+                ephemeral: true
+            });
+        });
+        
+    } catch (err) {
+        return interaction.followUp({
+            content: `Unknown error, please re-try.`,
+            ephemeral: true,
+        });
     };
+    }
 });
 
 const join = '898587285111603221';

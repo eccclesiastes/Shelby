@@ -149,7 +149,7 @@ client.on('ready', () => {
             {
                 name: 'user',
                 description: 'The user to find information on.',
-                required: true,
+                required: false,
                 type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
             },
         ],
@@ -202,9 +202,9 @@ client.on('ready', () => {
 
     
 client.on('messageCreate', (message) => {
-    if (message.content === 'ping') {
+    if (message.content === 'command.com') {
         message.reply({
-            content: 'pong',
+            content: 'Go to https://command.com',
         });
     };
 });
@@ -436,7 +436,7 @@ client.on('interactionCreate', async (interaction) => {
     };
     } else if (commandName === 'userinfo') {
         try {
-        const memberTarger = options.getMember('user');
+        const memberTarger = options.getMember('user') || interaction.member;
         const user = client.users.fetch(memberTarger);
         const pfp = memberTarger.displayAvatarURL();
 

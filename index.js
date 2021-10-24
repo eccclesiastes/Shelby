@@ -198,6 +198,19 @@ client.on('ready', () => {
             },
         ],
     })
+
+    commands?.create({
+        name: 'purge',
+        description: 'Purges a given number of messages.',
+        options: [
+            {
+                name: 'messages',
+                description: 'Amount of messages.',
+                required: true,
+                type: DiscordJS.Constants.ApplicationCommandOptionTypes.NUMBER
+            },
+        ],
+    })
 });
 
     
@@ -532,7 +545,40 @@ client.on('interactionCreate', async (interaction) => {
             ephemeral: true,
         });
     };
-    }
+    } else if (commandName === 'purge') {
+        try {
+        const amountTarger = options.getNumber('messages'); 
+
+        const embed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Succesfully purged')
+                .setDescription(`⛔ **| Succesfully purged ${amountTarger} messages. |** ⛔`)
+
+        const overEmbed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setTitle('Too many messages')
+                .setDescription(`⛔ **| Please select an amount of messages below 100. |** ⛔`)
+        
+        if (amountTarger > 100) {
+            interaction.reply({
+                embeds: [overEmbed],
+                ephemeral: true,
+            });
+        } 
+
+        interaction.channel.bulkDelete(amountTarger, true);
+
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true,
+        });
+    } catch (err) {
+        interaction.reply({
+            content: `Unknown error, please re-try.`,
+            ephemeral: true,
+        });
+    };
+    } 
 });
 
 const join = '898587285111603221';

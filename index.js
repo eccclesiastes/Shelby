@@ -38,7 +38,7 @@ client.on('ready', () => {
 
     commands?.create({
         name: 'ban',
-        description: 'Bans a member.',
+        description: 'Bans a user.',
         options: [
             {
                 name: 'user',
@@ -211,6 +211,11 @@ client.on('ready', () => {
             },
         ],
     })
+
+    commands?.create({
+        name: 'invite',
+        description: 'Gives the invite link of the bot.',
+    })
 });
 
     
@@ -374,8 +379,8 @@ client.on('interactionCreate', async (interaction) => {
     } else if (commandName === 'about') {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setTitle('About ')
-                .setDescription('-- is a **moderation dedicated** bot which uses purely **ephemeral slash commands** to provide a completely **"invisible"** experience to normal users, while still being of great use to moderators. Start your **better moderation experience** by interacting with the buttons below to **invite** me.')
+                .setAuthor('About Shelby', ``)
+                .setDescription('Shelby is a **moderation dedicated** bot which uses purely **ephemeral slash commands** to provide a completely **"invisible"** experience to normal users, while still being of great use to moderators. Start your **better moderation experience** by interacting with the buttons below to **invite** me.')
                 .setFooter('Made with <3 by dceu#0001')
 
         const linkRow = new MessageActionRow()
@@ -578,7 +583,26 @@ client.on('interactionCreate', async (interaction) => {
             ephemeral: true,
         });
     };
-    } 
+    } else if (commandName === 'invite') {
+        const embed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setAuthor(`Invite Shelby to your server!`, ``)
+                .setFooter('Made with <3 by dceu#0001')
+
+        const linkRow = new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setURL('https://discord.com/api/oauth2/authorize?client_id=898229527761788990&permissions=8&scope=bot%20applications.commands')
+                        .setLabel('Invite me!')
+                        .setStyle('LINK')
+                )
+    
+        interaction.reply({
+            embeds: [embed],
+            ephemeral: true,
+            components: [linkRow],
+        });
+    }
 });
 
 const join = '898587285111603221';

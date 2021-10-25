@@ -32,31 +32,6 @@ client.on('ready', () => {
     };
 
     commands?.create({
-        name: 'mute',
-        description: 'Mutes a user.',
-        options: [
-            {
-                name: 'user',
-                description: 'The user to mute.',
-                required: true,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
-            },
-            {
-                name: 'reason',
-                description: 'Reason for the mute.',
-                required: false,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
-            },
-            {
-                name: 'time',
-                description: 'Time for the mute to last.',
-                require: false,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
-            },
-        ],
-    })
-
-    commands?.create({
         name: 'about',
         description: 'About this bot.',
     })
@@ -200,55 +175,8 @@ client.on('interactionCreate', async (interaction) => {
     } 
 
     const { commandName, options } = interaction;
-r
-    if (commandName === 'mute') {
-        const memberTarger = options.getMember('user');
-        const reasonTarger = options.getString('reason') || 'No reason provided.';
-        const timeTarger = options.getString('time'); 
-        const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted');
 
-        const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setTitle('Member muted')
-                .setDescription(`⛔ **| ${memberTarger} has been muted: ${reasonTarger} |** ⛔`)
-
-        const actionTaken = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setDescription(`⛔ **| You have been muted in ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
-
-        const alreadyMuted = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setDescription(`❌ **| This member is already muted. |** ❌`)
-
-        if (!memberTarger.roles.cache.has(muteRole.id)) {
-
-        await memberTarger.send({ embeds: [actionTaken] });
-
-        if (!timeTarger) {
-            memberTarger.roles.add(muteRole.id);
-            interaction.reply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-            return;
-        } 
-        memberTarger.roles.add(muteRole.id);
-
-        interaction.reply({
-            embeds: [embed],
-            ephemeral: true,
-        });
-
-        setTimeout(() => {
-            memberTarger.roles.remove(muteRole.id);
-        }, ms(timeTarger));
-    } else {
-        interaction.reply({
-            embeds: [alreadyMuted],
-            ephemeral: true,
-        });
-    };
-    } else if (commandName === 'about') {
+    if (commandName === 'about') {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setAuthor('About Shelby', ``) //link

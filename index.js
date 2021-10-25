@@ -32,25 +32,6 @@ client.on('ready', () => {
     };
 
     commands?.create({
-        name: 'kick',
-        description: 'Kicks a user.',
-        options: [
-            {
-                name: 'user',
-                description: 'The user to kick.',
-                required: true,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
-            },
-            {
-                name: 'reason',
-                description: 'Reason for the kick.',
-                required: false,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
-            },
-        ],
-    })
-
-    commands?.create({
         name: 'mute',
         description: 'Mutes a user.',
         options: [
@@ -219,50 +200,8 @@ client.on('interactionCreate', async (interaction) => {
     } 
 
     const { commandName, options } = interaction;
-
-    if (commandName === 'kick') {
-        const memberTarger = options.getMember('user');
-        const reasonTarger = options.getString('reason') || 'No reason provided.';
-        const owner = interaction.guild.fetchOwner();
-        const getOwner = (await owner).id;
-
-        const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setTitle('Member kicked')
-                .setDescription(`⛔ **| ${memberTarger} has been kicked: ${reasonTarger} |** ⛔`);
-
-        const actionTaken = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setDescription(`⛔ **| You have been kicked from ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
-
-        if (memberTarger.roles.highest.position >= interaction.guild.me.roles.highest.position || memberTarger.id === getOwner) {
-            interaction.reply({
-                embeds: [rejected],
-                ephemeral: true,
-            }).catch(() => {
-                interaction.followUp({
-                    content: `Unknow error.`,
-                    ephemeral: true,
-                });
-            });
-        } else {
-        await memberTarger.send({ embeds: [actionTaken] }).catch(() => {
-            interaction.followUp({
-                content: `Error to DM user, kick still executed.`,
-                ephemeral: true,
-            });
-        });
-
-        await interaction.guild.members.kick(memberTarger.id, {reason: reasonTarger}).catch(() => {
-            return;
-        });
-
-        await interaction.reply({
-            embeds: [embed],
-            ephemeral: true,
-            });
-        };   
-    } else if (commandName === 'mute') {
+r
+    if (commandName === 'mute') {
         const memberTarger = options.getMember('user');
         const reasonTarger = options.getString('reason') || 'No reason provided.';
         const timeTarger = options.getString('time'); 

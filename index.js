@@ -32,25 +32,6 @@ client.on('ready', () => {
     };
 
     commands?.create({
-        name: 'unmute',
-        description: 'Unmute a user.',
-        options: [
-            {
-                name: 'user',
-                description: 'The user to unmute.',
-                required: true,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.USER
-            },
-            {
-                name: 'reason',
-                description: 'Reason for the unmute.',
-                required: false,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
-            },
-        ],
-    })
-
-    commands?.create({
         name: 'unban',
         description: 'Unban a user.',
         options: [
@@ -171,35 +152,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const { commandName, options } = interaction;
 
-    if (commandName === 'unmute') {
-        const memberTarger = options.getMember('user');
-        const reasonTarger = options.getString('reason') || 'No reason provided.';
-        const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted');
-
-        const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setTitle('Member unmuted')
-                .setDescription(`⛔ **| ${memberTarger} has been unmuted: ${reasonTarger} |** ⛔`)
-
-        const alreadyUnmuted = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setDescription(`❌ **| This member is already unmuted. |** ❌`)
-
-        if (memberTarger.roles.cache.has(muteRole.id)) {
-
-        memberTarger.roles.remove(muteRole.id);
-
-            interaction.reply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-        } else {
-            interaction.reply({
-                embeds: [alreadyUnmuted],
-                ephemeral: true,
-            });
-        };
-    } else if (commandName === 'unban') {
+    if (commandName === 'unban') {
         try {
         const memberTarger = options.getString('userid');
         const reasonTarger = options.getString('reason') || 'No reason provided.';

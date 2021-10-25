@@ -32,11 +32,6 @@ client.on('ready', () => {
     };
 
     commands?.create({
-        name: 'ping',
-        description: 'Shows the ping of the bot.',
-    })
-
-    commands?.create({
         name: 'ban',
         description: 'Bans a user.',
         options: [
@@ -244,18 +239,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const { commandName, options } = interaction;
 
-    if (commandName === 'ping') {
-        const msg = await interaction.reply({
-            content: '🏓 Pong!',
-            ephemeral: true,
-            fetchReply: true, 
-        });
-
-        interaction.editReply({
-            content: `🏓 Pong! \`${Date.now() - msg.createdTimestamp}ms\``,
-            ephemeral: true,
-        });
-    } else if (commandName === 'ban') {
+    if (commandName === 'ban') {
         const memberTarger = options.getMember('user');
         const reasonTarger = options.getString('reason') || 'No reason provided.';
         const owner = interaction.guild.fetchOwner();
@@ -389,7 +373,7 @@ client.on('interactionCreate', async (interaction) => {
     } else if (commandName === 'about') {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor('About Shelby', ``)
+                .setAuthor('About Shelby', ``) //link
                 .setDescription('Shelby is a **moderation dedicated** bot which uses purely **ephemeral slash commands** to provide a completely **"invisible"** experience to normal users, while still being of great use to moderators. Start your **better moderation experience** by interacting with the buttons below to **invite** me.')
                 .setFooter('Made with <3 by dceu#0001')
 
@@ -596,7 +580,7 @@ client.on('interactionCreate', async (interaction) => {
     } else if (commandName === 'invite') {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor(`Invite Shelby to your server!`, ``)
+                .setAuthor(`Invite Shelby to your server!`, ``) //link
                 .setFooter('Made with <3 by dceu#0001')
 
         const linkRow = new MessageActionRow()
@@ -615,7 +599,7 @@ client.on('interactionCreate', async (interaction) => {
     } else if (commandName === 'vote') {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor(`Vote for Shelby!`, ``)
+                .setAuthor(`Vote for Shelby!`, ``) //link
                 .setFooter('Made with <3 by dceu#0001')
 
         const linkRow = new MessageActionRow()
@@ -634,7 +618,7 @@ client.on('interactionCreate', async (interaction) => {
     } else if (commandName === 'help') {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor(`Shelby's Commands`, ``)
+                .setAuthor(`Shelby's Commands`, ``) //link
                 .setDescription(`To get a better understanding of the commands, please refer to the description provided under the command in auto-complete mode. Additionally, you can find additional information on the parameters of the command there.`)
                 .addField('Moderation Commands', '`ban` • `kick` • `mute` • `purge` • `role` • `unban` • `unmute` • `warn`')
                 .addField('Information Commands', '`about` • `help` • `invite` • `vote` • `help`')

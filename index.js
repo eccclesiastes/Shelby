@@ -32,25 +32,6 @@ client.on('ready', () => {
     };
 
     commands?.create({
-        name: 'unban',
-        description: 'Unban a user.',
-        options: [
-            {
-                name: 'userid',
-                description: 'The ID of the user to unban.',
-                required: true,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
-            },
-            {
-                name: 'reason',
-                description: 'Reason for the unban.',
-                required: false,
-                type: DiscordJS.Constants.ApplicationCommandOptionTypes.STRING
-            },
-        ],
-    })
-
-    commands?.create({
         name: 'userinfo',
         description: 'Shows information on a user.',
         options: [
@@ -152,35 +133,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const { commandName, options } = interaction;
 
-    if (commandName === 'unban') {
-        try {
-        const memberTarger = options.getString('userid');
-        const reasonTarger = options.getString('reason') || 'No reason provided.';
-        let user = await client.users.fetch(memberTarger);
-
-        const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setTitle('Member unbanned')
-                .setDescription(`⛔ **| ${user.tag} has been unbanned: ${reasonTarger} |** ⛔`)
-
-        interaction.guild.members.unban(memberTarger).then(() => {
-            interaction.reply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-        });
-    } catch (error) {
-        const invalid = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setTitle('Unable to unban')
-                .setDescription(`❌ **| Please provide a valid member to unban. |** ❌`)
-
-        interaction.reply({
-            embeds: [invalid],
-            ephemeral: true,
-        });
-    };
-    } else if (commandName === 'userinfo') {
+    if (commandName === 'userinfo') {
         try {
         const memberTarger = options.getMember('user') || interaction.member;
         const user = client.users.fetch(memberTarger);

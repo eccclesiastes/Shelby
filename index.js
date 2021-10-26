@@ -30,11 +30,6 @@ client.on('ready', () => {
     } else {
         commands = client.application?.commands;
     };
-
-    commands?.create({
-        name: 'help',
-        description: `Gives guidance on the bot's commands.`
-    })
 });
 
     
@@ -52,21 +47,6 @@ client.on('interactionCreate', async (interaction) => {
     } 
 
     const { commandName, options } = interaction;
-
-    if (commandName === 'help') {
-        const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setAuthor(`Shelby's Commands`, ``) //link
-                .setDescription(`To get a better understanding of the commands, please refer to the description provided under the command in auto-complete mode. Additionally, you can find additional information on the parameters of the command there.`)
-                .addField('Moderation Commands', '`ban` • `kick` • `mute` • `purge` • `role` • `unban` • `unmute` • `warn`')
-                .addField('Information Commands', '`about` • `help` • `invite` • `vote` • `help`')
-                .addField('General Commands', '`userinfo` • `ping`')
-
-        interaction.reply({
-            embeds: [embed],
-            ephemeral: true,
-        });
-    }
 });
 
 const join = '898587285111603221';

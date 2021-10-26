@@ -32,11 +32,6 @@ client.on('ready', () => {
     };
 
     commands?.create({
-        name: 'invite',
-        description: 'Gives the invite link of the bot.',
-    })
-
-    commands?.create({
         name: 'vote',
         description: 'Gives the voting link of the bot.',
     })
@@ -63,26 +58,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const { commandName, options } = interaction;
 
-    if (commandName === 'invite') {
-        const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setAuthor(`Invite Shelby to your server!`, ``) //link
-                .setFooter('Made with <3 by dceu#0001')
-
-        const linkRow = new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setURL('https://discord.com/api/oauth2/authorize?client_id=898229527761788990&permissions=277495671895&scope=applications.commands%20bot')
-                        .setLabel('Invite me!')
-                        .setStyle('LINK')
-                )
-    
-        interaction.reply({
-            embeds: [embed],
-            ephemeral: true,
-            components: [linkRow],
-        });
-    } else if (commandName === 'vote') {
+    if (commandName === 'vote') {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setAuthor(`Vote for Shelby!`, ``) //link

@@ -32,11 +32,6 @@ client.on('ready', () => {
     };
 
     commands?.create({
-        name: 'vote',
-        description: 'Gives the voting link of the bot.',
-    })
-
-    commands?.create({
         name: 'help',
         description: `Gives guidance on the bot's commands.`
     })
@@ -58,26 +53,7 @@ client.on('interactionCreate', async (interaction) => {
 
     const { commandName, options } = interaction;
 
-    if (commandName === 'vote') {
-        const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setAuthor(`Vote for Shelby!`, ``) //link
-                .setFooter('Made with <3 by dceu#0001')
-
-        const linkRow = new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setURL('https://discord.com')
-                        .setLabel('Vote for me!')
-                        .setStyle('LINK')
-                )
-    
-        interaction.reply({
-            embeds: [embed],
-            ephemeral: true,
-            components: [linkRow],
-        });
-    } else if (commandName === 'help') {
+    if (commandName === 'help') {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setAuthor(`Shelby's Commands`, ``) //link

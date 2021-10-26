@@ -13,6 +13,14 @@ const client = new DiscordJS.Client({
     ]
 });
 
+client.commands = new Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    client.commands.set(command.data.name, command);
+}
+
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')
             .setTitle('Unable to take action')

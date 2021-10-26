@@ -1,9 +1,9 @@
-import DiscordJS, { Guild, Intents, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
-import dotenv from 'dotenv';
-import ms from 'ms';
-import { link } from 'fs';
-const fs = require('fs')
-const { Client, Collection, Intents } = require('discord.js');
+const DiscordJS = require('discord.js');
+const { Guild, Intents, MessageActionRow, MessageButton, MessageEmbed, Client, Collection } = require('discord.js');
+const dotenv = require('dotenv');
+const ms = require('ms');
+const { link } = require('fs');
+const fs = require('fs');
 dotenv.config();
 
 const client = new DiscordJS.Client({
@@ -21,11 +21,6 @@ for (const file of commandFiles) {
     client.commands.set(command.data.name, command);
 }
 
-const rejected = new DiscordJS.MessageEmbed()
-            .setColor('#2f3136')
-            .setTitle('Unable to take action')
-            .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
-
 client.on('ready', () => {
     console.log('Bot is online.');
     
@@ -41,11 +36,18 @@ client.on('ready', () => {
 });
 
 client.on('interactionCreate', async (interaction) => {
-    if (!interaction.isCommand()) {
-        return;
-    } 
+    if (!interaction.isCommand()) return;
 
-    const { commandName, options } = interaction;
+    const command = client.commands.get(interaction.commandName);
+
+	if (!command) return;
+
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 });
 
 const join = '898587285111603221';

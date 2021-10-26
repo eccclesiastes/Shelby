@@ -1,9 +1,9 @@
 import DiscordJS, { Guild, Intents, MessageActionRow, MessageButton, MessageEmbed } from 'discord.js';
-import WOKCommands from 'wokcommands';
-import path from 'path';
 import dotenv from 'dotenv';
 import ms from 'ms';
 import { link } from 'fs';
+const fs = require('fs')
+const { Client, Collection, Intents } = require('discord.js');
 dotenv.config();
 
 const client = new DiscordJS.Client({
@@ -29,15 +29,6 @@ client.on('ready', () => {
         commands = guild.commands;
     } else {
         commands = client.application?.commands;
-    };
-});
-
-    
-client.on('messageCreate', (message) => {
-    if (message.content === 'command.com') {
-        message.reply({
-            content: 'Go to https://command.com',
-        });
     };
 });
 

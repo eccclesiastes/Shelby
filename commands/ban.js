@@ -1,5 +1,9 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { execute } = require('./ping');
+
+const rejected = new DiscordJS.MessageEmbed()
+            .setColor('#2f3136')
+            .setTitle('Unable to take action')
+            .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
 
 module.exports = {
     data: new SlashCommandBuilder()

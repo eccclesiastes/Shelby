@@ -44,6 +44,13 @@ client.on('interactionCreate', async (interaction) => {
 
 	try {
 		await command.execute(interaction);
+    
+        const logEmbed = new DiscordJS.MessageEmbed()
+                    .setDescription(`**Command:** \`${interaction.commandName}\` • **Ran by:** \`${interaction.user.tag}(${interaction.member.id})\` • **Guild:** \`${interaction.guild.name}(${interaction.guildId})\` • **Members:** \`${interaction.guild.memberCount
+                    }\``)
+                    .setTimestamp()
+
+        client.channels.cache.get('902981513887490059').send({ embeds: [logEmbed] });
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });

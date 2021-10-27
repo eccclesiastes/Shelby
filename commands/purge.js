@@ -16,7 +16,7 @@ module.exports = {
                     .setRequired(true)),
     async execute(interaction) {
         try {
-            const amountTarger = options.getNumber('messages'); 
+            const amountTarger = interaction.options.getNumber('messages'); 
     
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
@@ -33,14 +33,19 @@ module.exports = {
                     embeds: [overEmbed],
                     ephemeral: true,
                 });
-            } 
+            } else {
+
+            await interaction.deferReply({
+                ephemeral: true,
+            });
     
-            interaction.channel.bulkDelete(amountTarger, true);
+            await interaction.channel.bulkDelete(amountTarger, true);
     
-            interaction.reply({
+            interaction.editReply({
                 embeds: [embed],
                 ephemeral: true,
             });
+        }
         } catch (err) {
             interaction.reply({
                 content: `Unknown error, please re-try.`,

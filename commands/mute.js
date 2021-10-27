@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DiscordJS = require('discord.js');
+const ms = require('ms');
 
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')
@@ -23,10 +24,14 @@ module.exports = {
                     .setDescription('Time for the mute to last.')
                     .setRequired(false)),
     async execute(interaction) {
-        const memberTarger = options.getMember('user');
-        const reasonTarger = options.getString('reason') || 'No reason provided.';
-        const timeTarger = options.getString('time'); 
-        const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted');
+        const memberTarger = interaction.options.getMember('user');
+        const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
+        const timeTarger = interaction.options.getString('time'); 
+        const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted').catch(() => {
+            interaction.reply({
+                content: `No mute role found!`,
+            });
+        });
 
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
@@ -43,7 +48,7 @@ module.exports = {
 
         if (!memberTarger.roles.cache.has(muteRole.id)) {
 
-        await memberTarger.send({ embeds: [actionTaken] });
+        memberTarger.send({ embeds: [actionTaken] });
 
         if (!timeTarger) {
             memberTarger.roles.add(muteRole.id);

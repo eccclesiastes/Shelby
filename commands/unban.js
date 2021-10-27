@@ -12,36 +12,37 @@ module.exports = {
         .setDescription('Unbans a user.')
         .addStringOption(option => 
             option.setName('userid')
-                    .setDescription('The ID of the user to unban.')
+                    .setDescription('The user to unban.')
                     .setRequired(true))
         .addStringOption(option => 
             option.setName('reason')
                     .setDescription('Reason for the unban.')
                     .setRequired(false)),
-    async execute(interaction) {
+    async execute(interaction, client) {
         try {
-            const memberTarger = options.getString('userid');
-            const reasonTarger = options.getString('reason') || 'No reason provided.';
-            let user = await client.users.fetch(memberTarger);
+            const memberTarger = interaction.options.getString('userid');
+            const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
     
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Member unbanned')
-                    .setDescription(`⛔ **| ${user.tag} has been unbanned: ${reasonTarger} |** ⛔`)
+                    .setDescription(`⛔ **| ${memberTarger} has been unbanned: ${reasonTarger} |** ⛔`)
     
-            interaction.guild.members.unban(memberTarger).then(() => {
-                interaction.reply({
+            await interaction.deferReply({ ephemeral: true });
+
+            await interaction.guild.members.unban(memberTarger).then(() => {
+                interaction.editReply({
                     embeds: [embed],
                     ephemeral: true,
                 });
-            });
-        } catch (error) {
-            const invalid = new DiscordJS.MessageEmbed()
+            })
+    } catch (err) {
+        const invalid = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Unable to unban')
                     .setDescription(`❌ **| Please provide a valid member to unban. |** ❌`)
     
-            interaction.reply({
+            interaction.editReply({
                 embeds: [invalid],
                 ephemeral: true,
             });

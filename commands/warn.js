@@ -1,11 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DiscordJS = require('discord.js');
 
-const rejected = new DiscordJS.MessageEmbed()
-            .setColor('#2f3136')
-            .setTitle('Unable to take action')
-            .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
-
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('warn')
@@ -20,8 +15,8 @@ module.exports = {
                     .setRequired(false)),
     async execute(interaction) {
         try {
-            const memberTarger = options.getMember('user');
-            const reasonTarger = options.getString('reason') || 'No reason provided.';
+            const memberTarger = interaction.options.getMember('user');
+            const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
     
             const modEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
@@ -31,6 +26,11 @@ module.exports = {
             const userEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setDescription(`⛔ **| You have been warned in ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
+            
+            const rejected = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setTitle('Unable to take action')
+                    .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
             
             interaction.reply({
                 embeds: [modEmbed],

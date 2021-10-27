@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DiscordJS = require('discord.js');
+const { MessageActionRow } = require('discord.js');
+const { MessageButton } = require('discord.js');
 
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')

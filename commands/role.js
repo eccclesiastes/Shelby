@@ -24,9 +24,9 @@ module.exports = {
                     .setRequired(false)),
     async execute(interaction) {
         try {
-            const memberTarger = options.getMember('user');
-            const roleTarger = options.getRole('role');
-            const reasonTarger = options.getString('reason') || 'No reason provided.';
+            const memberTarger = interaction.options.getMember('user');
+            const roleTarger = interaction.options.getRole('role');
+            const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
     
             const addedEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')

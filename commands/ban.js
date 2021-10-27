@@ -19,8 +19,8 @@ module.exports = {
                     .setDescription('Reason for the ban.')
                     .setRequired(false)),
     async execute(interaction) {
-        const memberTarger = options.getMember('user');
-        const reasonTarger = options.getString('reason') || 'No reason provided.';
+        const memberTarger = interaction.options.getMember('user');
+        const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
         const owner = interaction.guild.fetchOwner();
         const getOwner = (await owner).id;
 

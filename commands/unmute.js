@@ -19,8 +19,8 @@ module.exports = {
                     .setDescription('Reason for the unmute.')
                     .setRequired(false)),
     async execute(interaction) {
-        const memberTarger = options.getMember('user');
-        const reasonTarger = options.getString('reason') || 'No reason provided.';
+        const memberTarger = interaction.options.getMember('user');
+        const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
         const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted');
 
         const embed = new DiscordJS.MessageEmbed()

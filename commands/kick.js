@@ -19,8 +19,8 @@ module.exports = {
                     .setDescription('Reason for the kick.')
                     .setRequired(false)),
     async execute(interaction) {
-        const memberTarger = options.getMember('user');
-        const reasonTarger = options.getString('reason') || 'No reason provided.';
+        const memberTarger = interaction.options.getMember('user');
+        const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
         const owner = interaction.guild.fetchOwner();
         const getOwner = (await owner).id;
 
@@ -33,8 +33,10 @@ module.exports = {
                 .setColor('#2f3136')
                 .setDescription(`⛔ **| You have been kicked from ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
 
+        await interaction.deferReply({ ephemeral: true });
+
         if (memberTarger.roles.highest.position >= interaction.guild.me.roles.highest.position || memberTarger.id === getOwner) {
-            interaction.reply({
+            interaction.editReply({
                 embeds: [rejected],
                 ephemeral: true,
             }).catch(() => {
@@ -55,7 +57,7 @@ module.exports = {
             return;
         });
 
-        await interaction.reply({
+        await interaction.editReply({
             embeds: [embed],
             ephemeral: true,
             });

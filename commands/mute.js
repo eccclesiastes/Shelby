@@ -24,9 +24,21 @@ module.exports = {
                     .setDescription('Time for the mute to last.')
                     .setRequired(false)),
     async execute(interaction) {
+        const perm_bot_error_embed = new DiscordJS.MessageEmbed()
+                .setTitle(`Error`)
+                .setDescription(`❌ **| Please make sure I have the \`Manage Roles\` permission before executing this command! |** ❌`)
+                .setColor('#2f3136')
+
+        if (!interaction.guild.me.permissions.has(`MANAGE_ROLES`)) {
+            interaction.reply({
+                embeds: [perm_bot_error_embed],
+                ephemeral: true,
+            });
+        } else {
         const memberTarger = interaction.options.getMember('user');
         const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
         const timeTarger = interaction.options.getString('time'); 
+        const pfp = memberTarger.displayAvatarURL();
         const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted').catch(() => {
             interaction.reply({
                 content: `No mute role found!`,
@@ -45,6 +57,13 @@ module.exports = {
         const alreadyMuted = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setDescription(`❌ **| This member is already muted. |** ❌`)
+
+        const logEmbed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setAuthor(`⛔ ${memberTarger.user.tag} has been muted ⛔`, `${pfp}`)
+                .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
+                .addField(`Reason:`, `${reasonTarger}`, true)
+                .addField(`Time:`, `${timeTarger}`, true)
 
         if (!memberTarger.roles.cache.has(muteRole.id)) {
 
@@ -72,7 +91,8 @@ module.exports = {
             interaction.reply({
                 embeds: [alreadyMuted],
                 ephemeral: true,
-            });
+                });
+            };
         };
     },
 };

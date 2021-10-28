@@ -23,10 +23,22 @@ module.exports = {
                     .setDescription('The reason the role is being added/removed.')
                     .setRequired(false)),
     async execute(interaction) {
+        const perm_bot_error_embed = new DiscordJS.MessageEmbed()
+                .setTitle(`Error`)
+                .setDescription(`❌ **| Please make sure I have the \`Manage Roles\` permission before executing this command! |** ❌`)
+                .setColor('#2f3136')
+
+        if (!interaction.guild.me.permissions.has(`MANAGE_ROLES`)) {
+            interaction.reply({
+                embeds: [perm_bot_error_embed],
+                ephemeral: true,
+            });
+        } else {
         try {
             const memberTarger = interaction.options.getMember('user');
             const roleTarger = interaction.options.getRole('role');
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
+            const pfp = memberTarger.displayAvatarURL();
     
             const addedEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
@@ -37,6 +49,13 @@ module.exports = {
                     .setColor('#2f3136')
                     .setTitle('Role removed')
                     .setDescription(`⛔ **| ${memberTarger} has been removed from the role ${roleTarger}: ${reasonTarger} |** ⛔`)
+
+            const logEmbed = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setAuthor(`⛔ Role granted/removed to ${memberTarger.user.tag} ⛔`, `${pfp}`)
+                    .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
+                    .addField(`Role:`, `${roleTarger}`, true)
+                    .addField(`Reason:`, `${reasonTarger}`, true)
     
             if (!memberTarger.roles.cache.has(roleTarger.id)) {
                 await memberTarger.roles.add(roleTarger.id);
@@ -62,7 +81,8 @@ module.exports = {
             interaction.reply({
                 embeds: [errorEmbed],
                 ephemeral: true,
-            });
+                });
+            };
         };
     },
 };

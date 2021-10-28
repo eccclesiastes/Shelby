@@ -15,6 +15,17 @@ module.exports = {
                     .setDescription('Amount of messages.')
                     .setRequired(true)),
     async execute(interaction) {
+        const perm_bot_error_embed = new DiscordJS.MessageEmbed()
+                .setTitle(`Error`)
+                .setDescription(`❌ **| Please make sure I have the \`Manage Messages\` permission before executing this command! |** ❌`)
+                .setColor('#2f3136')
+
+        if (!interaction.guild.me.permissions.has(`MANAGE_MESSAGES`)) {
+            interaction.reply({
+                embeds: [perm_bot_error_embed],
+                ephemeral: true,
+            });
+        } else {
         try {
             const amountTarger = interaction.options.getNumber('messages'); 
     
@@ -28,6 +39,13 @@ module.exports = {
                     .setTitle('Too many messages')
                     .setDescription(`⛔ **| Please select an amount of messages below 100. |** ⛔`)
             
+            const logEmbed = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setAuthor(`⛔ Messages purged ⛔`)
+                    .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
+                    .addField(`Messages:`, `${amountTarger}`, true)
+                    
+
             if (amountTarger > 100) {
                 interaction.reply({
                     embeds: [overEmbed],
@@ -50,7 +68,8 @@ module.exports = {
             interaction.reply({
                 content: `Unknown error, please re-try.`,
                 ephemeral: true,
-            });
+                });
+            };
         };
     },
 };

@@ -35,15 +35,27 @@ module.exports = {
                 ephemeral: true,
             });
         } else {
+            try {
+
+        await interaction.deferReply({ ephemeral: true });
+
         const memberTarger = interaction.options.getMember('user');
         const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
         const timeTarger = interaction.options.getString('time'); 
         const pfp = memberTarger.displayAvatarURL();
-        const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted').catch(() => {
-            interaction.reply({
-                content: `No mute role found!`,
+        const muteRole = interaction.guild.roles.cache.find(role => role.name === 'Muted');
+
+        if (muteRole === undefined) {
+            const embed = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setTitle(`Unable to find 'Muted' role`)
+                    .setDescription(`❌ **| Please make sure there is a 'Muted' role before executing this command again! |** ❌`)
+
+            interaction.editReply({
+                embeds: [embed],
+                ephemeral: true,
             });
-        });
+        } else {
 
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
@@ -67,30 +79,43 @@ module.exports = {
 
         if (!memberTarger.roles.cache.has(muteRole.id)) {
 
-        memberTarger.send({ embeds: [actionTaken] });
-
         if (!timeTarger) {
-            memberTarger.roles.add(muteRole.id);
-            interaction.reply({
+            await memberTarger.roles.add(muteRole.id);
+            memberTarger.send({ embeds: [actionTaken] });
+            interaction.editReply({
                 embeds: [embed],
                 ephemeral: true,
             });
             return;
         } 
-        memberTarger.roles.add(muteRole.id);
+        await memberTarger.roles.add(muteRole.id);
 
-        interaction.reply({
+        memberTarger.send({ embeds: [actionTaken] });
+
+        interaction.editReply({
             embeds: [embed],
             ephemeral: true,
         });
 
-        setTimeout(() => {
-            memberTarger.roles.remove(muteRole.id);
+        setTimeout(async () => {
+            await memberTarger.roles.remove(muteRole.id);
         }, ms(timeTarger));
     } else {
-            interaction.reply({
+            interaction.editReply({
                 embeds: [alreadyMuted],
                 ephemeral: true,
+                        });
+                    };
+                };
+            } catch (error) {
+                const rolesErrorEmbed = new DiscordJS.MessageEmbed()
+                    .setTitle(`Error`)
+                    .setDescription(`❌ **| Please make sure my highest role is above the \`Muted\` role before executing this command! |** ❌`)
+                    .setColor('#2f3136')
+    
+                interaction.editReply({
+                    embeds: [rolesErrorEmbed],
+                    ephemeral: true,
                 });
             };
         };

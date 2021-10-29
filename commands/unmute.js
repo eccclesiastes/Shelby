@@ -30,6 +30,10 @@ module.exports = {
                 ephemeral: true,
             });
         } else {
+            try {
+
+        await interaction.deferReply({ ephemeral: true });
+
         const memberTarger = interaction.options.getMember('user');
         const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
         const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted');
@@ -52,16 +56,27 @@ module.exports = {
 
         if (memberTarger.roles.cache.has(muteRole.id)) {
 
-        memberTarger.roles.remove(muteRole.id);
+        await memberTarger.roles.remove(muteRole.id);
 
-            interaction.reply({
+            interaction.editReply({
                 embeds: [embed],
                 ephemeral: true,
             });
         } else {
-            interaction.reply({
+            interaction.editReply({
                 embeds: [alreadyUnmuted],
                 ephemeral: true,
+                    });
+                };
+            } catch (err) {
+                const rolesErrorEmbed = new DiscordJS.MessageEmbed()
+                    .setTitle(`Error`)
+                    .setDescription(`❌ **| Please make sure my highest role is above the \`Muted\` role before executing this command! |** ❌`)
+                    .setColor('#2f3136')
+    
+                interaction.editReply({
+                    embeds: [rolesErrorEmbed],
+                    ephemeral: true,
                 });
             };
         };

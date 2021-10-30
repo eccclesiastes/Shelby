@@ -24,7 +24,7 @@ for (const file of commandFiles) {
 client.on('ready', () => {
     console.log('Bot is online.');
     const guildNumbers = client.guilds.cache.size;
-    client.user.setActivity(`${guildNumbers} Servers`, {type: "WATCHING" });
+    client.user.setActivity(`${guildNumbers} Servers | /setup`, {type: "WATCHING" });
     
     const guildId = '898229423336218645';
     const guild = client.guilds.cache.get(guildId);

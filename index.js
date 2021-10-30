@@ -23,6 +23,8 @@ for (const file of commandFiles) {
 
 client.on('ready', () => {
     console.log('Bot is online.');
+    const guildNumbers = client.guilds.cache.size;
+    client.user.setActivity(`${guildNumbers} Servers`, {type: "WATCHING" });
     
     const guildId = '898229423336218645';
     const guild = client.guilds.cache.get(guildId);
@@ -72,6 +74,10 @@ client.on('guildCreate', async (guild) => {
 
     client.channels.cache.get(join).send({embeds: [embed] });
     });
+
+client.on('guildDelete', async (guild) => {
+
+});
 
 
 client.login(process.env.TOKEN);

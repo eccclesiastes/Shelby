@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DiscordJS = require('discord.js');
 const mysql = require('mysql2'); 
+const config = require('../databaseConfig');
+const connection = config.connection;
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -26,14 +28,7 @@ module.exports = {
                 .addField('Log channel:', `${interaction.options.getChannel('logging_channel')}`, true)
                 .addField('Moderator role:', `${interaction.options.getRole('moderator_role')}`, true)
 
-        await interaction.deferReply({ ephemeral: true });
-
-        const connection = mysql.createConnection({
-            host: "localhost",
-            user: "Shelby",
-            password: "Shelby1234",
-            database : 'shelbydb'
-          });        
+        await interaction.deferReply({ ephemeral: true });      
 
         connection.connect(function(err) {
             if (err) { throw err; };

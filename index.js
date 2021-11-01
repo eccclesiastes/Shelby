@@ -35,7 +35,7 @@ client.on('interactionCreate', async (interaction) => {
 	if (!command) return;
 
 	try {
-		await command.execute(interaction);
+		await command.execute(client, interaction);
     
         const logEmbed = new DiscordJS.MessageEmbed()
                     .setDescription(`**Command:** \`${interaction.commandName}\` • **Ran by:** \`${interaction.user.tag}(${interaction.member.id})\` • **Guild:** \`${interaction.guild.name}(${interaction.guildId})\` • **Members:** \`${interaction.guild.memberCount

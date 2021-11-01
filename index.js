@@ -65,9 +65,5 @@ client.on('guildCreate', async (guild) => {
     client.channels.cache.get(join).send({embeds: [embed] });
     });
 
-client.on('guildDelete', async (guild) => {
-
-});
-
 
 client.login(process.env.TOKEN);

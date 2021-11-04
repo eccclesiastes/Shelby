@@ -16,10 +16,18 @@ module.exports = {
             option.setName('logging_channel')
                     .setDescription('The channel where events are logged.')
                     .setRequired(true)),
-    async execute(interaction) {
+    async execute(client, interaction) {
         const guildID = interaction.guildId;
         const channelID = interaction.options.getChannel('logging_channel').id;
         const roleId = interaction.options.getRole('moderator_role').id;
+        // const banCommand = await client.application?.commands.fetch('904840051039551519').applicationId;
+        // const kickCommand = await client.application?.commands.fetch('904840051039551523').applicationId;
+        // const muteCommand = await client.application?.commands.fetch('904840051039551524').applicationId;
+        // const purgeCommand = await client.application?.commands.fetch('904840051039551526').applicationId;
+        // const roleCommand = await client.application?.commands.fetch('904840051039551527').applicationId;
+        // const unbanCommand = await client.application?.commands.fetch('904840051085705227').applicationId;
+        // const unmuteCommand = await client.application?.commands.fetch('904840051085705228').applicationId;
+        // const warnCommand = await client.application?.commands.fetch('904840051085705231').applicationId;
 
         const respondEmbed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
@@ -28,14 +36,9 @@ module.exports = {
                 .addField('Log channel:', `${interaction.options.getChannel('logging_channel')}`, true)
                 .addField('Moderator role:', `${interaction.options.getRole('moderator_role')}`, true)
 
-        await interaction.deferReply({ ephemeral: true });      
+        // await interaction.deferReply({ ephemeral: true });      
 
-        connection.connect(function(err) {
-            if (err) { throw err; };
-            console.log("Connected!");
-          });
-
-        connection.execute(`SELECT ? FROM configuration`, [guildID], function (err, result) {
+        connection.execute(`SELECT * FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
             console.log(result);
     
@@ -52,7 +55,80 @@ module.exports = {
             };
         });
 
-        interaction.editReply({
+        const fullPermissions = [
+            {
+                id: `904840051039551519`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
+            {
+                id: `904840051039551523`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
+            {
+                id: `904840051039551524`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
+            {
+                id: `904840051039551526`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
+            {
+                id: `904840051039551527`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
+            {
+                id: `904840051085705227`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
+            {
+                id: `904840051085705228`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
+            {
+                id: `904840051085705231`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
+        ];
+
+    try {
+            client.guilds.cache.get(guildID).commands.permissions.set({ fullPermissions });
+        } catch(e) {
+          console.log(e);
+    };
+
+        interaction.reply({
             embeds: [respondEmbed],
             ephemeral: true
         });

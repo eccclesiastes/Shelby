@@ -1,5 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DiscordJS = require('discord.js');
+const mysql = require('mysql2'); 
+const config = require('../databaseConfig');
+const connection = config.connection;
 
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')
@@ -10,11 +13,12 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('purge')
         .setDescription('Purges a given number of messages.')
+        .setDefaultPermission(false)
         .addNumberOption(option =>
             option.setName('messages')
                     .setDescription('Amount of messages.')
                     .setRequired(true)),
-    async execute(interaction) {
+    async execute(client, interaction) {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
                 .setDescription(`❌ **| Please make sure I have the \`Manage Messages\` permission before executing this command! |** ❌`)
@@ -28,6 +32,7 @@ module.exports = {
         } else {
         try {
             const amountTarger = interaction.options.getNumber('messages'); 
+            const pfp = interaction.member.displayAvatarURL();
     
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
@@ -58,12 +63,39 @@ module.exports = {
             });
     
             await interaction.channel.bulkDelete(amountTarger, true);
+
+            // connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
+        //     if (err) { throw err; };
+        //     console.log(result);
+    
+        //     if(result == null) { 
+        //     const logReject = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setTitle('Unable to log action')
+        //             .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+
+        //         interaction.followUp({
+        //             embeds: [logReject],
+        //             ephemeral: true
+        //         });
+        //     } else {  
+        //         const logEmbed = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setAuthor(`❌ ${interaction.user.tag} purged messages`, `${pfp}`)
+        //             .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+        //             .addField(`Messages`, `Amount: ${amountTarger}`, true)
+        //             .setTimestamp()
+
+
+        //         client.guilds.cache.get(interaction.guild.id).channels.cache.get(result).send({embeds: [logEmbed] });
+        //     };
+        // });
     
             interaction.editReply({
                 embeds: [embed],
                 ephemeral: true,
             });
-        }
+        };
         } catch (err) {
             interaction.reply({
                 content: `Unknown error, please re-try.`,

@@ -9,7 +9,7 @@ module.exports = {
             option.setName('user')
                     .setDescription('The user to find information on.')
                     .setRequired(false)),
-    async execute(interaction) {
+    async execute(client, interaction) {
         try {
             const memberTarger = interaction.options.getMember('user') || interaction.member;
             const pfp = memberTarger.displayAvatarURL();

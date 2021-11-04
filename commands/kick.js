@@ -1,5 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DiscordJS = require('discord.js');
+const mysql = require('mysql2'); 
+const config = require('../databaseConfig');
+const connection = config.connection;
 
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')
@@ -10,6 +13,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('kick')
         .setDescription('Kicks a user.')
+        .setDefaultPermission(false)
         .addUserOption(option => 
             option.setName('user')
                     .setDescription('The user to kick.')
@@ -18,7 +22,7 @@ module.exports = {
             option.setName('reason')
                     .setDescription('Reason for the kick.')
                     .setRequired(false)),
-    async execute(interaction, client) {
+    async execute(client, interaction) {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
                 .setDescription(`❌ **| Please make sure I have the \`Kick Members\` permission before executing this command! |** ❌`)
@@ -74,6 +78,34 @@ module.exports = {
         await interaction.guild.members.kick(memberTarger.id, {reason: reasonTarger}).catch(() => {
             return;
         });
+
+        // connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
+        //     if (err) { throw err; };
+        //     console.log(result);
+    
+        //     if(result == null) { 
+        //     const logReject = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setTitle('Unable to log action')
+        //             .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+
+        //         interaction.followUp({
+        //             embeds: [logReject],
+        //             ephemeral: true
+        //         });
+        //     } else {  
+        //         const logEmbed = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setAuthor(`❌ ${memberTarger.user.tag} was kicked`, `${pfp}`)
+        //             .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+        //             .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
+        //             .addField(`Reason`, `${reasonTarger}`, true)
+        //             .setTimestamp()
+
+
+        //         client.guilds.cache.get(interaction.guild.id).channels.cache.get(result).send({embeds: [logEmbed] });
+        //     };
+        // });
 
         await interaction.editReply({
             embeds: [embed],

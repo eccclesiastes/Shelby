@@ -12,7 +12,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('invite')
         .setDescription('Gives the invite link of the bot.'),
-    async execute(interaction) {
+    async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setAuthor(`Invite Shelby to your server!`, ``) //link

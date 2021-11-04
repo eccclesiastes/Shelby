@@ -12,7 +12,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('vote')
         .setDescription('Gives the voting link of the bot.'),
-    async execute(interaction) {
+    async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setAuthor(`Vote for Shelby!`, ``) //link

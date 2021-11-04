@@ -6,8 +6,8 @@ const { MessageButton } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('setup')
-        .setDescription('Instructions on how to setup the bot. (Administrator Only)'),
-    async execute(interaction) {
+        .setDescription('Instructions on how to setup the bot.'),
+    async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setTitle('How to setup Shelby')

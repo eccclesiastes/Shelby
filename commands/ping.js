@@ -10,7 +10,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('ping')
         .setDescription('Shows the ping of the bot.'),
-    async execute(interaction) {
+    async execute(client, interaction) {
         const msg = await interaction.reply({
             content: '🏓 Pong!',
             ephemeral: true,

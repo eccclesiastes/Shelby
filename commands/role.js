@@ -1,5 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DiscordJS = require('discord.js');
+const mysql = require('mysql2'); 
+const config = require('../databaseConfig');
+const connection = config.connection;
 
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')
@@ -10,6 +13,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('role')
         .setDescription('Adds or removes a role to a user.')
+        .setDefaultPermission(false)
         .addUserOption(option =>
             option.setName('user')
                     .setDescription('Add or remove a user to a role.')
@@ -22,7 +26,7 @@ module.exports = {
             option.setName('reason')
                     .setDescription('The reason the role is being added/removed.')
                     .setRequired(false)),
-    async execute(interaction) {
+    async execute(client, interaction) {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
                 .setDescription(`❌ **| Please make sure I have the \`Manage Roles\` permission before executing this command! |** ❌`)
@@ -59,6 +63,35 @@ module.exports = {
     
             if (!memberTarger.roles.cache.has(roleTarger.id)) {
                 await memberTarger.roles.add(roleTarger.id);
+
+                // connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
+        //     if (err) { throw err; };
+        //     console.log(result);
+    
+        //     if(result == null) { 
+        //     const logReject = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setTitle('Unable to log action')
+        //             .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+
+        //         interaction.followUp({
+        //             embeds: [logReject],
+        //             ephemeral: true
+        //         });
+        //     } else {  
+        //         const logEmbed = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setAuthor(`❌ ${memberTarger.user.tag} granted role`, `${pfp}`)
+        //             .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+        //             .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
+        //             .addField(`Role`, `${roleTarger}`, true)
+        //             .addField(`Reason`, `${reasonTarger}`, true)
+        //             .setTimestamp()
+
+
+        //         client.guilds.cache.get(interaction.guild.id).channels.cache.get(result).send({embeds: [logEmbed] });
+        //     };
+        // });
     
                 interaction.reply({
                     embeds: [addedEmbed],
@@ -66,6 +99,35 @@ module.exports = {
                 });
             } else if (memberTarger.roles.cache.has(roleTarger.id)) {
                 await memberTarger.roles.remove(roleTarger.id);
+
+                // connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
+        //     if (err) { throw err; };
+        //     console.log(result);
+    
+        //     if(result == null) { 
+        //     const logReject = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setTitle('Unable to log action')
+        //             .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+
+        //         interaction.followUp({
+        //             embeds: [logReject],
+        //             ephemeral: true
+        //         });
+        //     } else {  
+        //         const logEmbed = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setAuthor(`❌ ${memberTarger.user.tag} role removed`, `${pfp}`)
+        //             .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+        //             .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
+        //             .addField(`Role`, `${roleTarger}`, true)
+        //             .addField(`Reason`, `${reasonTarger}`, true)
+        //             .setTimestamp()
+
+
+        //         client.guilds.cache.get(interaction.guild.id).channels.cache.get(result).send({embeds: [logEmbed] });
+        //     };
+        // });
     
                 interaction.reply({
                     embeds: [removedEmbed],

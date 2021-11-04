@@ -1,10 +1,14 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const DiscordJS = require('discord.js');
+const mysql = require('mysql2'); 
+const config = require('../databaseConfig');
+const connection = config.connection;
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('warn')
         .setDescription('Warns a user by DMing them.')
+        .setDefaultPermission(false)
         .addUserOption(option => 
             option.setName('user')
                     .setDescription('The user to be warned.')
@@ -13,7 +17,7 @@ module.exports = {
             option.setName('reason')
                     .setDescription('Reason for the warn.')
                     .setRequired(false)),
-    async execute(interaction) {
+    async execute(client, interaction) {
         try {
             const memberTarger = interaction.options.getMember('user');
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
@@ -38,12 +42,40 @@ module.exports = {
                     .setAuthor(`⛔ ${memberTarger.user.tag} warned ⛔`, `${pfp}`)
                     .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
                     .addField(`Reason:`, `${reasonTarger}`, true)
+
+            // connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
+        //     if (err) { throw err; };
+        //     console.log(result);
+    
+        //     if(result == null) { 
+        //     const logReject = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setTitle('Unable to log action')
+        //             .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+
+        //         interaction.followUp({
+        //             embeds: [logReject],
+        //             ephemeral: true
+        //         });
+        //     } else {  
+        //         const logEmbed = new DiscordJS.MessageEmbed()
+        //             .setColor('#2f3136')
+        //             .setAuthor(`❌ ${memberTarger.user.tag} was warned`, `${pfp}`)
+        //             .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+        //             .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
+        //             .addField(`Reason`, `${reasonTarger}`, true)
+        //             .setTimestamp()
+
+
+        //         client.guilds.cache.get(interaction.guild.id).channels.cache.get(result).send({embeds: [logEmbed] });
+        //     };
+        // });
             
             interaction.reply({
                 embeds: [modEmbed],
                 ephemeral: true,
             });
-    
+
             memberTarger.send({ embeds: [userEmbed] }).catch(() => {
                 interaction.followUp({
                     content: `Unable to DM user.`,

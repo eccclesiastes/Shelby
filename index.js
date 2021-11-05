@@ -45,7 +45,7 @@ client.on('interactionCreate', async (interaction) => {
         client.channels.cache.get('902981513887490059').send({ embeds: [logEmbed] });
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
 
@@ -53,6 +53,13 @@ const join = '898587285111603221';
 
 client.on('guildCreate', async (guild) => {
     const owner = await guild.fetchOwner().then(u => u.user.tag); 
+    const ownerPerm = (await guild.fetchOwner()).id;
+
+    const ownerEmbed = new DiscordJS.MessageEmbed()
+        .setTitle('Thank you for inviting Shelby')
+        .setColor('#2f3136')
+        .setDescription('Thank you for inviting Shelby! Please find all the information you need on setting Shelby up by using /setup. You can also get a full list of all the commands by using /help. Thank you for your support! <3')
+        .setFooter('Made with <3 by dceu#0001')
 
     const embed = new DiscordJS.MessageEmbed()
         .setTitle('\:white_check_mark: Invited to server')
@@ -63,6 +70,8 @@ client.on('guildCreate', async (guild) => {
         .addField(`Members`, `\n ${guild.memberCount}\n`)
 
     client.channels.cache.get(join).send({embeds: [embed] });
+
+    (await guild.fetchOwner()).send({ embeds: [ownerEmbed] });
     });
 
 

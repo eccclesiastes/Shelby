@@ -36,6 +36,7 @@ module.exports = {
         } else {
         const memberTarger = interaction.options.getMember('user');
         const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
+        const guildID = interaction.guildId;
         const owner = interaction.guild.fetchOwner();
         const pfp = memberTarger.displayAvatarURL();
         const getOwner = (await owner).id;
@@ -77,33 +78,33 @@ module.exports = {
             return;
         });
 
-        // connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
-        //     if (err) { throw err; };
-        //     console.log(result);
+        connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id= ? `, [guildID], function (err, result) {
+            if (err) { throw err; };
+            console.log(result);
     
-        //     if(result == null) { 
-        //     const logReject = new DiscordJS.MessageEmbed()
-        //             .setColor('#2f3136')
-        //             .setTitle('Unable to log action')
-        //             .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+            if(result == null) { 
+            const logReject = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setTitle('Unable to log action')
+                    .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
 
-        //         interaction.followUp({
-        //             embeds: [logReject],
-        //             ephemeral: true
-        //         });
-        //     } else {  
-        //         const logEmbed = new DiscordJS.MessageEmbed()
-        //             .setColor('#2f3136')
-        //             .setAuthor(`❌ ${memberTarger.user.tag} was banned`, `${pfp}`)
-        //             .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
-        //             .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
-        //             .addField(`Reason`, `${reasonTarger}`, true)
-        //             .setTimestamp()
+                interaction.followUp({
+                    embeds: [logReject],
+                    ephemeral: true
+                });
+            } else {  
+                const logEmbed = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setAuthor(`❌ ${memberTarger.user.tag} was banned`, `${pfp}`)
+                    .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+                    .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
+                    .addField(`Reason`, `${reasonTarger}`, true)
+                    .setTimestamp()
 
-
-        //         client.guilds.cache.get(interaction.guild.id).channels.cache.get(result).send({embeds: [logEmbed] });
-        //     };
-        // });
+                const channel = client.channels.cache.get(result[0].log_channel_id.toString());
+                channel.send({embeds:[logEmbed]});
+            };
+        });
 
 
         await interaction.reply({ 

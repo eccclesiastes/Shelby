@@ -42,6 +42,7 @@ module.exports = {
             const memberTarger = interaction.options.getMember('user');
             const roleTarger = interaction.options.getRole('role');
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
+            const guildID = interaction.guildId;
             const pfp = memberTarger.displayAvatarURL();
     
             const addedEmbed = new DiscordJS.MessageEmbed()
@@ -64,34 +65,35 @@ module.exports = {
             if (!memberTarger.roles.cache.has(roleTarger.id)) {
                 await memberTarger.roles.add(roleTarger.id);
 
-                // connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
-        //     if (err) { throw err; };
-        //     console.log(result);
+                connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
+            if (err) { throw err; };
+            console.log(result);
     
-        //     if(result == null) { 
-        //     const logReject = new DiscordJS.MessageEmbed()
-        //             .setColor('#2f3136')
-        //             .setTitle('Unable to log action')
-        //             .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+            if(result == null) { 
+            const logReject = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setTitle('Unable to log action')
+                    .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
 
-        //         interaction.followUp({
-        //             embeds: [logReject],
-        //             ephemeral: true
-        //         });
-        //     } else {  
-        //         const logEmbed = new DiscordJS.MessageEmbed()
-        //             .setColor('#2f3136')
-        //             .setAuthor(`❌ ${memberTarger.user.tag} granted role`, `${pfp}`)
-        //             .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
-        //             .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
-        //             .addField(`Role`, `${roleTarger}`, true)
-        //             .addField(`Reason`, `${reasonTarger}`, true)
-        //             .setTimestamp()
+                interaction.followUp({
+                    embeds: [logReject],
+                    ephemeral: true
+                });
+            } else {  
+                const logEmbed = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setAuthor(`❌ ${memberTarger.user.tag} granted role`, `${pfp}`)
+                    .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+                    .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
+                    .addField(`Role`, `${roleTarger}`, true)
+                    .addField(`Reason`, `${reasonTarger}`, true)
+                    .setTimestamp()
 
 
-        //         client.guilds.cache.get(interaction.guild.id).channels.cache.get(result).send({embeds: [logEmbed] });
-        //     };
-        // });
+                const channel = client.channels.cache.get(result[0].log_channel_id.toString());
+                channel.send({embeds:[logEmbed]});
+            };
+        });
     
                 interaction.reply({
                     embeds: [addedEmbed],
@@ -100,34 +102,35 @@ module.exports = {
             } else if (memberTarger.roles.cache.has(roleTarger.id)) {
                 await memberTarger.roles.remove(roleTarger.id);
 
-                // connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
-        //     if (err) { throw err; };
-        //     console.log(result);
+                connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
+            if (err) { throw err; };
+            console.log(result);
     
-        //     if(result == null) { 
-        //     const logReject = new DiscordJS.MessageEmbed()
-        //             .setColor('#2f3136')
-        //             .setTitle('Unable to log action')
-        //             .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+            if(result == null) { 
+            const logReject = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setTitle('Unable to log action')
+                    .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
 
-        //         interaction.followUp({
-        //             embeds: [logReject],
-        //             ephemeral: true
-        //         });
-        //     } else {  
-        //         const logEmbed = new DiscordJS.MessageEmbed()
-        //             .setColor('#2f3136')
-        //             .setAuthor(`❌ ${memberTarger.user.tag} role removed`, `${pfp}`)
-        //             .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
-        //             .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
-        //             .addField(`Role`, `${roleTarger}`, true)
-        //             .addField(`Reason`, `${reasonTarger}`, true)
-        //             .setTimestamp()
+                interaction.followUp({
+                    embeds: [logReject],
+                    ephemeral: true
+                });
+            } else {  
+                const logEmbed = new DiscordJS.MessageEmbed()
+                    .setColor('#2f3136')
+                    .setAuthor(`❌ ${memberTarger.user.tag} role removed`, `${pfp}`)
+                    .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+                    .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
+                    .addField(`Role`, `${roleTarger}`, true)
+                    .addField(`Reason`, `${reasonTarger}`, true)
+                    .setTimestamp()
 
 
-        //         client.guilds.cache.get(interaction.guild.id).channels.cache.get(result).send({embeds: [logEmbed] });
-        //     };
-        // });
+                const channel = client.channels.cache.get(result[0].log_channel_id.toString());
+                channel.send({embeds:[logEmbed]});
+            };
+        });
     
                 interaction.reply({
                     embeds: [removedEmbed],

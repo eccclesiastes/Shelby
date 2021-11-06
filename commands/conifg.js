@@ -36,7 +36,7 @@ module.exports = {
                 .addField('Log channel:', `${interaction.options.getChannel('logging_channel')}`, true)
                 .addField('Moderator role:', `${interaction.options.getRole('moderator_role')}`, true)
 
-        // await interaction.deferReply({ ephemeral: true });      
+        await interaction.deferReply({ ephemeral: true });  
 
         connection.execute(`SELECT * FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
@@ -48,8 +48,13 @@ module.exports = {
                     console.log("Inserted " +  result.affectedRows + " records");
                 });
             } else {  
-                connection.execute(`UPDATE configuration SET staff_role_id = ?, log_channel_id = ? WHERE guild_id = ?`, [ roleId, channelID, guildID ], function (err, result) {
+                connection.execute(`DELETE FROM configuration WHERE guild_id = ?`, [guildID], function (err, result) {
                     if (err) { throw err; }
+                    console.log("Deleted " +  result.affectedRows + " records");
+                });
+
+                connection.execute(`INSERT INTO configuration (guild_id, staff_role_id, log_channel_id) VALUES (?, ?, ?)`, [guildID, roleId, channelID], function (err, result) {
+                    if (err) { throw err; };
                     console.log("Inserted " +  result.affectedRows + " records");
                 });
             };
@@ -128,7 +133,7 @@ module.exports = {
           console.log(e);
     };
 
-        interaction.reply({
+        interaction.editReply({
             embeds: [respondEmbed],
             ephemeral: true
         });

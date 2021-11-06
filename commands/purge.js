@@ -83,7 +83,7 @@ module.exports = {
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setAuthor(`❌ ${interaction.user.tag} purged messages`, `${pfp}`)
-                    .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+                    .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Messages`, `Amount: ${amountTarger}`, true)
                     .setTimestamp()
 

@@ -62,7 +62,7 @@ module.exports = {
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setAuthor(`❌ ${memberTarger.user.tag} was warned`, `${pfp}`)
-                    .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+                    .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)
                     .setTimestamp()

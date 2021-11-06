@@ -34,7 +34,7 @@ module.exports = {
                 ephemeral: true,
             });
         } else {
-        try {
+        try {          
             const memberTarger = interaction.options.getString('userid');
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
             const guildID = interaction.guildId;
@@ -51,10 +51,9 @@ module.exports = {
                     .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
                     .addField(`Reason:`, `${reasonTarger}`, true)
 
-            await interaction.deferReply({ ephemeral: true });
+            await interaction.guild.members.unban(memberTarger);
 
-            await interaction.guild.members.unban(memberTarger).then(() => {
-                connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
+            connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
             console.log(result);
     
@@ -72,7 +71,7 @@ module.exports = {
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setAuthor(`❌ ${memberTarger.user.tag} was unbanned`, `${pfp}`)
-                    .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+                    .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)
                     .setTimestamp()
@@ -83,11 +82,10 @@ module.exports = {
             };
         });
 
-                interaction.editReply({
-                    embeds: [embed],
-                    ephemeral: true,
-                });
-            })
+            interaction.editReply({
+                embeds: [embed],
+                ephemeral: true,
+            });
     } catch (err) {
         const invalid = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')

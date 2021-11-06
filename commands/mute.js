@@ -86,7 +86,38 @@ module.exports = {
 
         if (!timeTarger) {
             await memberTarger.roles.add(muteRole.id);
+
             memberTarger.send({ embeds: [actionTaken] });
+
+            connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
+                if (err) { throw err; };
+                console.log(result);
+        
+                if(result == null) { 
+                const logReject = new DiscordJS.MessageEmbed()
+                        .setColor('#2f3136')
+                        .setTitle('Unable to log action')
+                        .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+    
+                    interaction.followUp({
+                        embeds: [logReject],
+                        ephemeral: true
+                    });
+                } else {  
+                    const logEmbed = new DiscordJS.MessageEmbed()
+                        .setColor('#2f3136')
+                        .setAuthor(`❌ ${memberTarger.user.tag} was muted`, `${pfp}`)
+                        .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+                        .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
+                        .addField(`Reason`, `${reasonTarger}`, true)
+                        .setTimestamp()
+            
+            
+                    const channel = client.channels.cache.get(result[0].log_channel_id.toString());
+                    channel.send({embeds:[logEmbed]});
+                };
+            });
+
             interaction.editReply({
                 embeds: [embed],
                 ephemeral: true,

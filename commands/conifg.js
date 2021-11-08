@@ -7,7 +7,8 @@ const connection = config.connection;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('config')
-        .setDescription('Configuration command for setting logging channel and staff role. (Administrator Only)')
+        .setDescription('Configuration command for setting logging channel and staff role. (Owner Only)')
+        .setDefaultPermission(false)
         .addRoleOption(option =>
             option.setName('moderator_role')
                     .setDescription('The role that can use the moderation commands.')
@@ -20,7 +21,6 @@ module.exports = {
         const guildID = interaction.guildId;
         const channelID = interaction.options.getChannel('logging_channel').id;
         const roleId = interaction.options.getRole('moderator_role').id;
-        console.log(interaction.commandId);
         // const banCommand = await client.application?.commands.fetch('904840051039551519').applicationId;
         // const kickCommand = await client.application?.commands.fetch('904840051039551523').applicationId;
         // const muteCommand = await client.application?.commands.fetch('904840051039551524').applicationId;

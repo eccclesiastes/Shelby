@@ -69,7 +69,7 @@ module.exports = {
                     .setColor('#2f3136')
                     .setAuthor(`❌ ${guy.tag} was unbanned`, pfp)
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
-                    .addField(`Target`, `${memberTarger} / \`${guy.tag}\``, true)
+                    .addField(`Target`, `<@${memberTarger}> / \`${memberTarger}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)
                     .setTimestamp()
 

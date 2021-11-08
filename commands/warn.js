@@ -36,7 +36,7 @@ module.exports = {
             const rejected = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Unable to take action')
-                    .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
+                    .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
 
             connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };

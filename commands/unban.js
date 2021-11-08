@@ -25,7 +25,7 @@ module.exports = {
     async execute(client, interaction) {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
-                .setDescription(`❌ **| Please make sure I have the \`Ban Members\` permission before executing this command! |** ❌`)
+                .setDescription(`❌ **| Please make sure I have the \`Ban Members\` permission before executing this command! |** `)
                 .setColor('#2f3136')
 
         if (!interaction.guild.me.permissions.has(`BAN_MEMBERS`)) {
@@ -87,7 +87,7 @@ module.exports = {
         const invalid = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Unable to unban')
-                    .setDescription(`❌ **| Please provide a valid member to unban. |** ❌`)
+                    .setDescription(`❌ **| Please provide a valid member to unban. |** `)
 
             interaction.reply({
                 embeds: [invalid],

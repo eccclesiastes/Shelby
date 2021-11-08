@@ -7,7 +7,7 @@ const connection = config.connection;
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')
             .setTitle('Unable to take action')
-            .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
+            .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -25,7 +25,7 @@ module.exports = {
     async execute(client, interaction) {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
-                .setDescription(`❌ **| Please make sure I have the \`Kick Members\` permission before executing this command! |** ❌`)
+                .setDescription(`❌ **| Please make sure I have the \`Kick Members\` permission before executing this command! |** `)
                 .setColor('#2f3136')
 
         if (!interaction.guild.me.permissions.has(`KICK_MEMBERS`)) {

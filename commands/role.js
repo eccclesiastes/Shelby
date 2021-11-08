@@ -39,6 +39,8 @@ module.exports = {
             });
         } else {
         try {
+            await interaction.deferReply({ ephemeral: true });
+            
             const memberTarger = interaction.options.getMember('user');
             const roleTarger = interaction.options.getRole('role');
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
@@ -48,19 +50,12 @@ module.exports = {
             const addedEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Role added')
-                    .setDescription(`⛔ **| ${memberTarger} has been added to the role ${roleTarger}: ${reasonTarger} |** ⛔`)
+                    .setDescription(`❌ **| ${memberTarger} has been added to the role ${roleTarger}: ${reasonTarger} |** `)
     
             const removedEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Role removed')
-                    .setDescription(`⛔ **| ${memberTarger} has been removed from the role ${roleTarger}: ${reasonTarger} |** ⛔`)
-
-            const logEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
-                    .setAuthor(`⛔ Role granted/removed to ${memberTarger.user.tag} ⛔`, `${pfp}`)
-                    .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
-                    .addField(`Role:`, `${roleTarger}`, true)
-                    .addField(`Reason:`, `${reasonTarger}`, true)
+                    .setDescription(`❌ **| ${memberTarger} has been removed from the role ${roleTarger}: ${reasonTarger} |** `)
     
             if (!memberTarger.roles.cache.has(roleTarger.id)) {
                 await memberTarger.roles.add(roleTarger.id);
@@ -95,7 +90,7 @@ module.exports = {
             };
         });
     
-                interaction.reply({
+                interaction.editReply({
                     embeds: [addedEmbed],
                     ephemeral: true,
                 });
@@ -132,7 +127,7 @@ module.exports = {
             };
         });
     
-                interaction.reply({
+                interaction.editReply({
                     embeds: [removedEmbed],
                     ephemeral: true,
                 });
@@ -143,7 +138,7 @@ module.exports = {
                     .setTitle('Unable to add/remove role')
                     .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the role being added/removed. |** ❌`)
     
-            interaction.reply({
+            interaction.editReply({
                 embeds: [errorEmbed],
                 ephemeral: true,
                 });

@@ -47,17 +47,11 @@ module.exports = {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setTitle('Member unmuted')
-                .setDescription(`⛔ **| ${memberTarger} has been unmuted: ${reasonTarger} |** ⛔`)
+                .setDescription(`❌ **| ${memberTarger} has been unmuted: ${reasonTarger} |**`)
 
         const alreadyUnmuted = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setDescription(`❌ **| This member is already unmuted. |** ❌`)
-
-        const logEmbed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setAuthor(`⛔ ${memberTarger.user.tag} unmuted ⛔`, `${pfp}`)
-                .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
-                .addField(`Reason:`, `${reasonTarger}`, true)
 
         if (memberTarger.roles.cache.has(muteRole.id)) {
 

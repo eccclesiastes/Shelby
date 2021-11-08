@@ -20,6 +20,7 @@ module.exports = {
         const guildID = interaction.guildId;
         const channelID = interaction.options.getChannel('logging_channel').id;
         const roleId = interaction.options.getRole('moderator_role').id;
+        console.log(interaction.commandId);
         // const banCommand = await client.application?.commands.fetch('904840051039551519').applicationId;
         // const kickCommand = await client.application?.commands.fetch('904840051039551523').applicationId;
         // const muteCommand = await client.application?.commands.fetch('904840051039551524').applicationId;

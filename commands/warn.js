@@ -27,22 +27,16 @@ module.exports = {
             const modEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('User warned')
-                    .setDescription(`⛔ **| ${memberTarger} has been warned for: ${reasonTarger} |** ⛔`)
+                    .setDescription(`❌ **| ${memberTarger} has been warned for: ${reasonTarger} |**`)
     
             const userEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setDescription(`⛔ **| You have been warned in ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
+                    .setDescription(`❌ **| You have been warned in ${interaction.guild.name} for: ${reasonTarger} |**`)
             
             const rejected = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Unable to take action')
                     .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
-
-            const logEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
-                    .setAuthor(`⛔ ${memberTarger.user.tag} warned ⛔`, `${pfp}`)
-                    .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
-                    .addField(`Reason:`, `${reasonTarger}`, true)
 
             connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };

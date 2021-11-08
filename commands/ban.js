@@ -41,23 +41,19 @@ module.exports = {
         const pfp = memberTarger.displayAvatarURL();
         const getOwner = (await owner).id;
 
+        await interaction.deferReply({ ephemeral: true });
+
            const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setTitle('Member banned')
-                .setDescription(`⛔ **| ${memberTarger} has been banned: ${reasonTarger} |** ⛔`);
+                .setDescription(`❌ **| ${memberTarger} has been banned: ${reasonTarger} |** `);
 
             const actionTaken = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setDescription(`⛔ **| You have been banned from ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
-            
-            const logEmbed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setAuthor(`⛔ ${memberTarger.user.tag} has been banned ⛔`, `${pfp}`)
-                .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
-                .addField(`Reason:`, `${reasonTarger}`, true)
+                .setDescription(`❌ **| You have been banned from ${interaction.guild.name} for: ${reasonTarger} |** `)
 
         if (memberTarger.roles.highest.position >= interaction.guild.me.roles.highest.position || memberTarger.id === getOwner) {
-                interaction.reply({
+                interaction.editReply({
                     embeds: [rejected],
                     ephemeral: true,
                 }).catch(() => {
@@ -107,7 +103,7 @@ module.exports = {
         });
 
 
-        await interaction.reply({ 
+        await interaction.editReply({ 
             embeds: [embed], 
             ephemeral: true,
                 });

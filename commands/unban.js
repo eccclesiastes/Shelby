@@ -38,18 +38,15 @@ module.exports = {
             const memberTarger = interaction.options.getString('userid');
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
             const guildID = interaction.guildId;
-            const pfp = memberTarger.displayAvatarURL();
+            const guy = await client.users.fetch(memberTarger);
+            const pfp = guy.displayAvatarURL();
+
+            await interaction.deferReply({ ephemeral: true });
     
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Member unbanned')
-                    .setDescription(`⛔ **| ${memberTarger} has been unbanned: ${reasonTarger} |** ⛔`)
-
-            const logEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
-                    .setAuthor(`⛔ ${memberTarger.user.tag} unbanned ⛔`, `${pfp}`)
-                    .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
-                    .addField(`Reason:`, `${reasonTarger}`, true)
+                    .setDescription(`❌ **| ${guy.tag} has been unbanned: ${reasonTarger} |** `)
 
             await interaction.guild.members.unban(memberTarger);
 
@@ -70,9 +67,9 @@ module.exports = {
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor(`❌ ${memberTarger.user.tag} was unbanned`, `${pfp}`)
+                    .setAuthor(`❌ ${guy.tag} was unbanned`, pfp)
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
-                    .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
+                    .addField(`Target`, `${memberTarger} / \`${guy.tag}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)
                     .setTimestamp()
 

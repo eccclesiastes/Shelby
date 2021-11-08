@@ -44,17 +44,11 @@ module.exports = {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setTitle('Member kicked')
-                .setDescription(`⛔ **| ${memberTarger} has been kicked: ${reasonTarger} |** ⛔`);
+                .setDescription(`❌ **| ${memberTarger} has been kicked: ${reasonTarger} |** `);
 
         const actionTaken = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setDescription(`⛔ **| You have been kicked from ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
-
-        const logEmbed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setAuthor(`⛔ **| ${memberTarger.user.tag} has been kicked |** ⛔`, `${pfp}`)
-                .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
-                .addField(`Reason:`, `${reasonTarger}`, true)
+                .setDescription(`❌ **| You have been kicked from ${interaction.guild.name} for: ${reasonTarger} |** `)
 
         await interaction.deferReply({ ephemeral: true });
 

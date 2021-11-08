@@ -38,19 +38,12 @@ module.exports = {
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Succesfully purged')
-                    .setDescription(`⛔ **| Succesfully purged ${amountTarger} messages. |** ⛔`)
+                    .setDescription(`❌ **| Succesfully purged ${amountTarger} messages. |** `)
     
             const overEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Too many messages')
-                    .setDescription(`⛔ **| Please select an amount of messages below 100. |** ⛔`)
-            
-            const logEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
-                    .setAuthor(`⛔ Messages purged ⛔`)
-                    .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
-                    .addField(`Messages:`, `${amountTarger}`, true)
-                    
+                    .setDescription(`❌ **| Please select an amount of messages below 100. |** `)                   
 
             if (amountTarger > 100) {
                 interaction.reply({

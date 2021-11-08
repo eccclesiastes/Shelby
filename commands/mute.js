@@ -65,22 +65,15 @@ module.exports = {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setTitle('Member muted')
-                .setDescription(`⛔ **| ${memberTarger} has been muted: ${reasonTarger} |** ⛔`)
+                .setDescription(`❌ **| ${memberTarger} has been muted: ${reasonTarger} |**`)
 
         const actionTaken = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setDescription(`⛔ **| You have been muted in ${interaction.guild.name} for: ${reasonTarger} |** ⛔`)
+                .setDescription(`❌ **| You have been muted in ${interaction.guild.name} for: ${reasonTarger} |** `)
 
         const alreadyMuted = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setDescription(`❌ **| This member is already muted. |** ❌`)
-
-        const logEmbed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
-                .setAuthor(`⛔ ${memberTarger.user.tag} has been muted ⛔`, `${pfp}`)
-                .addField(`Moderator:`, `${interaction.member} \`(${interaction.user.tag})\``, true)
-                .addField(`Reason:`, `${reasonTarger}`, true)
-                .addField(`Time:`, `${timeTarger}`, true)
+                .setDescription(`❌ **| This member is already muted. |** `)
 
         if (!memberTarger.roles.cache.has(muteRole.id)) {
 
@@ -146,7 +139,7 @@ module.exports = {
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setAuthor(`❌ ${memberTarger.user.tag} was muted`, `${pfp}`)
-                    .addField(`Invoker`, `${interaction.member} / \`${interaction.member.tag}\``, true)
+                    .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)
                     .addField(`Time`, `${timeTarger}`, true)

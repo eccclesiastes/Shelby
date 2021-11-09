@@ -21,6 +21,7 @@ module.exports = {
         const guildID = interaction.guildId;
         const channelID = interaction.options.getChannel('logging_channel').id;
         const roleId = interaction.options.getRole('moderator_role').id;
+        const channel1 = interaction.options.getChannel('logging_channel');
         // const banCommand = await client.application?.commands.fetch('904840051039551519').applicationId;
         // const kickCommand = await client.application?.commands.fetch('904840051039551523').applicationId;
         // const muteCommand = await client.application?.commands.fetch('904840051039551524').applicationId;
@@ -29,6 +30,8 @@ module.exports = {
         // const unbanCommand = await client.application?.commands.fetch('904840051085705227').applicationId;
         // const unmuteCommand = await client.application?.commands.fetch('904840051085705228').applicationId;
         // const warnCommand = await client.application?.commands.fetch('904840051085705231').applicationId;
+
+        if (channel1.type === 'GUILD_TEXT') {
 
         const respondEmbed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
@@ -134,9 +137,19 @@ module.exports = {
           console.log(e);
     };
 
-        interaction.editReply({
-            embeds: [respondEmbed],
-            ephemeral: true
-        });
+            interaction.editReply({
+                embeds: [respondEmbed],
+                ephemeral: true
+            });
+        } else {
+            const respondEmbed = new DiscordJS.MessageEmbed()
+                .setColor('#2f3136')
+                .setDescription(`❌ **| Please make sure the logging channel is a text channel before using this command again |** `)
+
+            interaction.reply({
+                embeds: [respondEmbed],
+                ephemeral: true
+            });
+        };
     },
 };

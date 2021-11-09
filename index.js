@@ -35,7 +35,7 @@ for (const file of eventFiles) {
 setInterval(() => {
     const guildNumbers = client.guilds.cache.size;
     client.user.setActivity(`${guildNumbers} Servers | /setup`, {type: "WATCHING" });
-}, 1000 * 10);
+}, 1000 * 360);
 
 module.exports = client;
 

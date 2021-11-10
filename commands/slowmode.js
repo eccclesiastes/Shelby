@@ -8,6 +8,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('slowmode')
         .setDescription('Sets the slowmode for a channel.')
+        .setDefaultPermission(false)
         .addIntegerOption(option =>
             option.setName('seconds')
                     .setDescription('How many seconds slowmode to apply.')
@@ -28,8 +29,8 @@ module.exports = {
                 ephemeral: true,
             });
         } else {
-            const timeTarger = interaction.options.getIntegerOption('seconds');
-            const reasonTarger = interaction.options.getStringOption('reason') || 'No reason provided.';
+            const timeTarger = interaction.options.getInteger('seconds');
+            const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
             const guildID = interaction.guildId;
             const pfp = interaction.member.displayAvatarURL();
 
@@ -70,6 +71,8 @@ module.exports = {
                     channel.send({embeds:[logEmbed]});
                 };
             });
+
+            console.log(interaction.commandId);
     
             interaction.editReply({
                 embeds: [embed],

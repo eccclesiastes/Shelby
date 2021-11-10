@@ -129,6 +129,22 @@ module.exports = {
                     permission: true,
                 }],
             },
+            {
+                id: `908106687792181340`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
+            {
+                id: `908106687792181341`,
+                permissions: [{
+                    id: roleId,
+                    type: 'ROLE',
+                    permission: true,
+                }],
+            },
         ];
 
     try {

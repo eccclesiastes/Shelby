@@ -4,10 +4,16 @@ const mysql = require('mysql2');
 const config = require('../databaseConfig');
 const connection = config.connection;
 
+const rejected = new DiscordJS.MessageEmbed()
+            .setColor('#2f3136')
+            .setTitle('Unable to take action')
+            .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('nickname')
         .setDescription('Sets the nickname for a user.')
+        .setDefaultPermission(false)
         .addUserOption(option =>
             option.setName('user')
                     .setDescription('The user to apply a nickname to.')
@@ -32,18 +38,27 @@ module.exports = {
                 ephemeral: true,
             });
         } else {
-            const memberTarger = interaction.options.getUserOption('user');
-            const nicknameTarger = interaction.options.getStringOption('nickname');
-            const reasonTarger = interaction.options.getStringOption('reason') || 'No reason provided.';
+            const memberTarger = interaction.options.getMember('user')
+            const nicknameTarger = interaction.options.getString('nickname');
+            const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
             const guildID = interaction.guildId;
-            const pfp = interaction.member.displayAvatarURL();
+            const pfp = memberTarger.displayAvatarURL();
+            const owner = interaction.guild.fetchOwner();
+            const getOwner = (await owner).id;
 
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Nickname set')
-                    .setDescription(`❌ **| Nickname for ${memberTarger} has been set to ${nicknameTarger}: ${reasonTarger} |** `)
+                    .setDescription(`❌ **| Nickname for ${memberTarger}\`(${memberTarger.user.tag})\` has been set to \`${nicknameTarger}\`: ${reasonTarger} |** `)
 
             await interaction.deferReply({ ephemeral: true });
+
+            if (memberTarger.roles.highest.position >= interaction.guild.me.roles.highest.position || memberTarger.id === getOwner) {
+                interaction.editReply({
+                    embeds: [rejected],
+                    ephemeral: true
+                });
+            } else {
 
             await memberTarger.setNickname(nicknameTarger);
 
@@ -64,7 +79,7 @@ module.exports = {
                 } else {  
                     const logEmbed = new DiscordJS.MessageEmbed()
                         .setColor('#2f3136')
-                        .setAuthor(`❌ ${memberTarger.user.tag} set nickname`, `${pfp}`)
+                        .setAuthor(`❌ ${memberTarger.user.tag} set new display name`, `${pfp}`)
                         .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                         .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                         .addField(`Nickname`, `${nicknameTarger}`, true)
@@ -79,7 +94,8 @@ module.exports = {
             interaction.editReply({
                 embeds: [embed],
                 ephemeral: true
-            });
+                });
+            };
         };
     },
 };

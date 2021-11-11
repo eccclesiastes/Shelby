@@ -20,21 +20,6 @@ module.exports = {
 
         client.channels.cache.get('902981513887490059').send({ embeds: [logEmbed] });
 
-        const ownerPerm = (await interaction.guild.fetchOwner()).id;
-
-        const fullPermissions = [
-            {
-                id: '904840051039551520',
-                permissions: [{
-                    id: ownerPerm,
-                    type: 'USER',
-                    permission: true,
-                }],
-            },
-        ];
-
-        client.guilds.cache.get(interaction.guild.id).commands.permissions.set({ fullPermissions });
-
     
 	} catch (error) {
 		console.error(error);
@@ -43,7 +28,7 @@ module.exports = {
                 .setColor('#2f3136')
                 .setDescription(`❌ **| Unknown Error |** `)
 
-		await interaction.reply({ 
+		await interaction.followUp({ 
             embeds: [errorEmbed], 
             ephemeral: true 
             });

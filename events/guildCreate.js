@@ -24,6 +24,19 @@ module.exports = {
 
     client.channels.cache.get(join).send({embeds: [embed] });
 
+    const fullPermissions = [
+        {
+            id: '904840051039551520',
+            permissions: [{
+                id: ownerPerm,
+                type: 'USER',
+                permission: true,
+            }],
+        },
+    ];
+
+    client.guilds.cache.get(guild.id).commands.permissions.set({ fullPermissions });
+
     ow.send({ embeds: [ownerEmbed] });
 	},
 };

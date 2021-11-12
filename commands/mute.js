@@ -80,7 +80,9 @@ module.exports = {
         if (!timeTarger) {
             await memberTarger.roles.add(muteRole.id);
 
-            memberTarger.send({ embeds: [actionTaken] });
+            memberTarger.send({ embeds: [actionTaken] }).catch(() => {
+                return;
+            });
 
             connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
                 if (err) { throw err; };
@@ -119,7 +121,9 @@ module.exports = {
         } 
         await memberTarger.roles.add(muteRole.id);
 
-        memberTarger.send({ embeds: [actionTaken] });
+        memberTarger.send({ embeds: [actionTaken] }).catch(() => {
+            return;
+        });
 
         connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };

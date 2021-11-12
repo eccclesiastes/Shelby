@@ -49,12 +49,12 @@ module.exports = {
     
             const addedEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor('Role added', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                    .setAuthor('Role added', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
                     .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been added to the role ${roleTarger}: ${reasonTarger} |** `)
     
             const removedEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor('Role removed', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                    .setAuthor('Role removed', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
                     .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been removed from the role ${roleTarger}: ${reasonTarger} |** `)
     
             if (!memberTarger.roles.cache.has(roleTarger.id)) {

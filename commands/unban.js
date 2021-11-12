@@ -45,7 +45,7 @@ module.exports = {
     
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor('Member unbanned', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                    .setAuthor('Member unbanned', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
                     .setDescription(`<:shelbySuccess:908788558305820713> **| ${guy.tag} has been unbanned: ${reasonTarger} |** `)
 
             await interaction.guild.members.unban(memberTarger);

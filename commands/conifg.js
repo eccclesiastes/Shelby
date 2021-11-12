@@ -35,7 +35,7 @@ module.exports = {
 
         const respondEmbed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor('Successfully set staff role and log channel', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                .setAuthor('Successfully set staff role and log channel', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
                 .setDescription('<:shelbySuccess:908788558305820713> **| Please use /config again should you change the logging channel and/or moderator role |**')
                 .addField('Log channel:', `${interaction.options.getChannel('logging_channel')}`, true)
                 .addField('Moderator role:', `${interaction.options.getRole('moderator_role')}`, true)

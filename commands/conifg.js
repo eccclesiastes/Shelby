@@ -160,7 +160,7 @@ module.exports = {
         } else {
             const respondEmbed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setDescription(`❌ **| Please make sure the logging channel is a text channel before using this command again |** `)
+                .setDescription(`<:shelbyFailure:908851692408283136> **| Please make sure the logging channel is a text channel before using this command again |** `)
 
             interaction.reply({
                 embeds: [respondEmbed],

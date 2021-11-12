@@ -8,7 +8,7 @@ const connection = config.connection;
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')
             .setTitle('Unable to take action')
-            .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
+            .setDescription(`<:shelbyFailure:908851692408283136> **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -30,7 +30,7 @@ module.exports = {
     async execute(client, interaction) {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
-                .setDescription(`❌ **| Please make sure I have the \`Ban Members\` permission before executing this command! |** `)
+                .setDescription(`<:shelbyFailure:908851692408283136> **| Please make sure I have the \`Ban Members\` permission before executing this command! |** `)
                 .setColor('#2f3136')
 
         if (!interaction.guild.me.permissions.has(`BAN_MEMBERS`)) {
@@ -90,7 +90,7 @@ module.exports = {
             const logReject = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Unable to log action')
-                    .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+                    .setDescription(`<:shelbyFailure:908851692408283136> **| Action cannot be logged as there has been no logging channel found. |** ❌`)
 
                 interaction.followUp({
                     embeds: [logReject],
@@ -99,7 +99,7 @@ module.exports = {
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor(`❌ ${memberTarger.user.tag} was banned`, `${pfp}`)
+                    .setAuthor(`${memberTarger.user.tag} was banned`, `${pfp}`)
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)
@@ -128,7 +128,7 @@ module.exports = {
                         const logReject = new DiscordJS.MessageEmbed()
                                 .setColor('#2f3136')
                                 .setTitle('Unable to log action')
-                                .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+                                .setDescription(`<:shelbyFailure:908851692408283136> **| Action cannot be logged as there has been no logging channel found. |** ❌`)
             
                             interaction.followUp({
                                 embeds: [logReject],
@@ -136,8 +136,8 @@ module.exports = {
                             });
                         } else {  
                             const logEmbed = new DiscordJS.MessageEmbed()
-                                .setColor('#2f3136')
-                                .setAuthor(`❌ ${memberTarger.user.tag} was banned`, `${pfp}`)
+                                .setColor('#b8e4fd')
+                                .setAuthor(`${memberTarger.user.tag} was banned`, `${pfp}`)
                                 .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                                 .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                                 .addField(`Reason`, `${reasonTarger}`, true)

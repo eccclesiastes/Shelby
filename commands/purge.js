@@ -7,7 +7,7 @@ const connection = config.connection;
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')
             .setTitle('Unable to take action')
-            .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
+            .setDescription(`<:shelbyFailure:908851692408283136> **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,7 +21,7 @@ module.exports = {
     async execute(client, interaction) {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
-                .setDescription(`❌ **| Please make sure I have the \`Manage Messages\` permission before executing this command! |** `)
+                .setDescription(`<:shelbyFailure:908851692408283136> **| Please make sure I have the \`Manage Messages\` permission before executing this command! |** `)
                 .setColor('#2f3136')
 
         if (!interaction.guild.me.permissions.has(`MANAGE_MESSAGES`)) {
@@ -43,7 +43,7 @@ module.exports = {
             const overEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Too many messages')
-                    .setDescription(`❌ **| Please select an amount of messages below 100. |** `)                   
+                    .setDescription(`<:shelbyFailure:908851692408283136> **| Please select an amount of messages below 100. |** `)                   
 
             if (amountTarger > 100) {
                 interaction.reply({
@@ -66,7 +66,7 @@ module.exports = {
             const logReject = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Unable to log action')
-                    .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+                    .setDescription(`<:shelbyFailure:908851692408283136> **| Action cannot be logged as there has been no logging channel found. |** ❌`)
 
                 interaction.followUp({
                     embeds: [logReject],
@@ -74,8 +74,8 @@ module.exports = {
                 });
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
-                    .setAuthor(`❌ ${interaction.user.tag} purged messages`, `${pfp}`)
+                    .setColor('#b8e4fd')
+                    .setAuthor(`${interaction.user.tag} purged messages`, `${pfp}`)
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Messages`, `Amount: ${amountTarger}`, true)
                     .setTimestamp()

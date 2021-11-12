@@ -26,7 +26,7 @@ module.exports = {
 
         const errorEmbed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setDescription(`❌ **| Unknown Error |** `)
+                .setDescription(`<:shelbyFailure:908851692408283136> **| Unknown Error |** `)
 
 		await interaction.followUp({ 
             embeds: [errorEmbed], 

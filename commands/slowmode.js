@@ -20,7 +20,7 @@ module.exports = {
     async execute(client, interaction) {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
-                .setDescription(`❌ **| Please make sure I have the \`Manage Channels\` permission before executing this command! |** `)
+                .setDescription(`<:shelbyFailure:908851692408283136> **| Please make sure I have the \`Manage Channels\` permission before executing this command! |** `)
                 .setColor('#2f3136')
 
         if (!interaction.guild.me.permissions.has(`MANAGE_CHANNELS`)) {
@@ -51,7 +51,7 @@ module.exports = {
                 const logReject = new DiscordJS.MessageEmbed()
                         .setColor('#2f3136')
                         .setTitle('Unable to log action')
-                        .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+                        .setDescription(`<:shelbyFailure:908851692408283136> **| Action cannot be logged as there has been no logging channel found. |** ❌`)
     
                     interaction.followUp({
                         embeds: [logReject],
@@ -59,8 +59,8 @@ module.exports = {
                     });
                 } else {  
                     const logEmbed = new DiscordJS.MessageEmbed()
-                        .setColor('#2f3136')
-                        .setAuthor(`❌ ${interaction.user.tag} set slowmode`, `${pfp}`)
+                        .setColor('#b8e4fd')
+                        .setAuthor(` ${interaction.user.tag} set slowmode`, `${pfp}`)
                         .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                         .addField(`Seconds`, `${timeTarger} seconds`, true)
                         .addField(`Channel`, `${interaction.channel}`, true)

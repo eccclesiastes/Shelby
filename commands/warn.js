@@ -36,7 +36,7 @@ module.exports = {
             const rejected = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Unable to take action')
-                    .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
+                    .setDescription(`<:shelbyFailure:908851692408283136> **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
 
             connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
@@ -46,7 +46,7 @@ module.exports = {
             const logReject = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
                     .setTitle('Unable to log action')
-                    .setDescription(`❌ **| Action cannot be logged as there has been no logging channel found. |** ❌`)
+                    .setDescription(`<:shelbyFailure:908851692408283136> **| Action cannot be logged as there has been no logging channel found. |** ❌`)
 
                 interaction.followUp({
                     embeds: [logReject],
@@ -54,8 +54,8 @@ module.exports = {
                 });
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
-                    .setAuthor(`❌ ${memberTarger.user.tag} was warned`, `${pfp}`)
+                    .setColor('#b8e4fd')
+                    .setAuthor(`${memberTarger.user.tag} was warned`, `${pfp}`)
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)

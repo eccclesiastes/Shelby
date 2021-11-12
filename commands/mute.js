@@ -64,12 +64,12 @@ module.exports = {
 
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setTitle('Member muted')
-                .setDescription(`❌ **| ${memberTarger} has been muted: ${reasonTarger} |**`)
+                .setAuthor('Member muted', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been muted: ${reasonTarger} |**`)
 
         const actionTaken = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setDescription(`❌ **| You have been muted in ${interaction.guild.name} for: ${reasonTarger} |** `)
+                .setDescription(`<:shelbySuccess:908788558305820713> **| You have been muted in ${interaction.guild.name} for: ${reasonTarger} |** `)
 
         const alreadyMuted = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')

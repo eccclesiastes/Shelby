@@ -48,8 +48,8 @@ module.exports = {
 
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setTitle('Nickname set')
-                    .setDescription(`❌ **| Nickname for ${memberTarger}\`(${memberTarger.user.tag})\` has been set to \`${nicknameTarger}\`: ${reasonTarger} |** `)
+                    .setAuthor('Nickname set', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                    .setDescription(`<:shelbySuccess:908788558305820713> **| Nickname for ${memberTarger}\`(${memberTarger.user.tag})\` has been set to \`${nicknameTarger}\`: ${reasonTarger} |** `)
 
             await interaction.deferReply({ ephemeral: true });
 

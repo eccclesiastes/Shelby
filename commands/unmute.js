@@ -46,8 +46,8 @@ module.exports = {
 
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setTitle('Member unmuted')
-                .setDescription(`❌ **| ${memberTarger} has been unmuted: ${reasonTarger} |**`)
+                .setAuthor('Member unmuted', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been unmuted: ${reasonTarger} |**`)
 
         const alreadyUnmuted = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')

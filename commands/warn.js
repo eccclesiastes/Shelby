@@ -26,12 +26,12 @@ module.exports = {
     
             const modEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setTitle('User warned')
-                    .setDescription(`❌ **| ${memberTarger} has been warned for: ${reasonTarger} |**`)
+                    .setAuthor('Member warned', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                    .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been warned for: ${reasonTarger} |**`)
     
             const userEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setDescription(`❌ **| You have been warned in ${interaction.guild.name} for: ${reasonTarger} |**`)
+                    .setDescription(`<:shelbySuccess:908788558305820713> **| You have been warned in ${interaction.guild.name} for: ${reasonTarger} |**`)
             
             const rejected = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')

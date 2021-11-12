@@ -51,12 +51,12 @@ module.exports = {
 
            const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setTitle('Member banned')
-                .setDescription(`❌ **| ${memberTarger} has been banned: ${reasonTarger} |** `);
+                .setAuthor('Member banned', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been banned: ${reasonTarger} |** `);
 
             const actionTaken = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setDescription(`❌ **| You have been banned from ${interaction.guild.name} for: ${reasonTarger} |** `)
+                .setDescription(`<:shelbySuccess:908788558305820713> **| You have been banned from ${interaction.guild.name} for: ${reasonTarger} |** `)
 
         if (memberTarger.roles.highest.position >= interaction.guild.me.roles.highest.position || memberTarger.id === getOwner) {
                 interaction.editReply({

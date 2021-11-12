@@ -37,8 +37,8 @@ module.exports = {
     
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setTitle('Succesfully purged')
-                    .setDescription(`❌ **| Succesfully purged ${amountTarger} messages. |** `)
+                    .setAuthor('Successfully purged', `https://cdn.discordapp.com/attachments/898229423336218648/908836989476950076/preview-01.jpg`)
+                    .setDescription(`<:shelbySuccess:908788558305820713> **| Succesfully purged ${amountTarger} messages. |** `)
     
             const overEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')

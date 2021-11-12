@@ -10,7 +10,7 @@ module.exports = {
 
     const ownerEmbed = new DiscordJS.MessageEmbed()
         .setTitle('Thank you for inviting Shelby')
-        .setColor('#2f3136')
+        .setColor('#b8e4fd')
         .setDescription('Thank you for inviting Shelby! Please find all the information you need on setting Shelby up by using /setup. You can also get a full list of all the commands by using /help. Thank you for your support! <3')
         .setFooter('Made with <3 by dceu#0001')
 

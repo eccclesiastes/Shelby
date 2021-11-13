@@ -15,7 +15,7 @@ module.exports = {
     async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor(`Vote for Shelby!`, ``) //link
+                .setAuthor(`Vote for Shelby!`, `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`) 
                 .setFooter('Made with <3 by dceu#0001')
 
         const linkRow = new MessageActionRow()

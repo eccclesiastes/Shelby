@@ -10,10 +10,10 @@ module.exports = {
     async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setTitle('How to setup Shelby')
+                .setAuthor('How to setup Shelby', 'https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp')
                 .addField('1. Creating roles and channels', 'Please create a moderator role that can use all the moderation commands, a \'Muted\' role which the bot applies to muted members, and a logging channel where all activity of this bot is logged.')
-                .addField('2. Use /config', 'Please use /config to set the moderator role and log channel.')
-                .addField('3. All set', 'You can now begin using Shelby! For a list of all commands, use /help.')
+                .addField('2. Use \`/config\`', 'Please use \`/config\` to set the moderator role and log channel.')
+                .addField('3. All set', 'You can now begin using Shelby! For a list of all commands, use \`/help\`.')
                 .setFooter('Made with <3 by dceu#0001')
 
         const linkRow = new MessageActionRow()

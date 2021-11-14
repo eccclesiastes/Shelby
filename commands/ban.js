@@ -14,7 +14,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('ban')
         .setDescription('Bans a user.')
-        .setDefaultPermission(false)
         .addUserOption(option => 
             option.setName('user')
                     .setDescription('The user to ban.')
@@ -46,6 +45,7 @@ module.exports = {
         const owner = interaction.guild.fetchOwner();
         const pfp = memberTarger.displayAvatarURL();
         const getOwner = (await owner).id;
+        console.log(interaction.commandId);
 
         await interaction.deferReply({ ephemeral: true });
 

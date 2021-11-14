@@ -13,7 +13,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('purge')
         .setDescription('Purges a given number of messages.')
-        .setDefaultPermission(false)
         .addNumberOption(option =>
             option.setName('messages')
                     .setDescription('Amount of messages.')
@@ -34,6 +33,7 @@ module.exports = {
             const amountTarger = interaction.options.getNumber('messages'); 
             const guildID = interaction.guildId;
             const pfp = interaction.member.displayAvatarURL();
+            console.log(interaction.commandId);
     
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')

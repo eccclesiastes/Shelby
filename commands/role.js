@@ -13,7 +13,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('role')
         .setDescription('Adds or removes a role to a user.')
-        .setDefaultPermission(false)
         .addUserOption(option =>
             option.setName('user')
                     .setDescription('Add or remove a user to a role.')
@@ -46,6 +45,7 @@ module.exports = {
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
             const guildID = interaction.guildId;
             const pfp = memberTarger.displayAvatarURL();
+            console.log(interaction.commandId);
     
             const addedEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')

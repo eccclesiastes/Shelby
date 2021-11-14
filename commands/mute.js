@@ -14,7 +14,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('mute')
         .setDescription('Mutes a user.')
-        .setDefaultPermission(false)
         .addUserOption(option => 
             option.setName('user')
                     .setDescription('The user to mute.')
@@ -49,6 +48,7 @@ module.exports = {
         const timeTarger = interaction.options.getString('time'); 
         const pfp = memberTarger.displayAvatarURL();
         const muteRole = interaction.guild.roles.cache.find(role => role.name === 'Muted');
+        console.log(interaction.commandId);
 
         if (muteRole === undefined) {
             const embed = new DiscordJS.MessageEmbed()

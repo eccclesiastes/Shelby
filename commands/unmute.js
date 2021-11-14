@@ -13,7 +13,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('unmute')
         .setDescription('Unmutes a user.')
-        .setDefaultPermission(false)
         .addUserOption(option => 
             option.setName('user')
                     .setDescription('The user to unmute.')
@@ -43,6 +42,7 @@ module.exports = {
         const muteRole = interaction.guild.roles.cache.find(role => role.name == 'Muted');
         const guildID = interaction.guildId;
         const pfp = memberTarger.displayAvatarURL();
+        console.log(interaction.commandId);
 
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')

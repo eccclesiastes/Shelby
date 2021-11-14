@@ -8,7 +8,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('config')
         .setDescription('Configuration command for setting logging channel and staff role. (Owner Only)')
-        .setDefaultPermission(false)
         .addRoleOption(option =>
             option.setName('moderator_role')
                     .setDescription('The role that can use the moderation commands.')
@@ -41,6 +40,7 @@ module.exports = {
                 .addField('Moderator role:', `${interaction.options.getRole('moderator_role')}`, true)
 
         await interaction.deferReply({ ephemeral: true });  
+        console.log(interaction.commandId);
 
         connection.execute(`SELECT * FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
@@ -66,7 +66,7 @@ module.exports = {
 
         const fullPermissions = [
             {
-                id: `904840051039551519`,
+                id: `909504694467051542`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -74,7 +74,7 @@ module.exports = {
                 }],
             },
             {
-                id: `904840051039551523`,
+                id: `909504694467051546`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -82,7 +82,7 @@ module.exports = {
                 }],
             },
             {
-                id: `904840051039551524`,
+                id: `909504694467051547`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -90,7 +90,7 @@ module.exports = {
                 }],
             },
             {
-                id: `904840051039551526`,
+                id: `909504694467051548`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -98,7 +98,7 @@ module.exports = {
                 }],
             },
             {
-                id: `904840051039551527`,
+                id: `909504694861324338`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -106,7 +106,7 @@ module.exports = {
                 }],
             },
             {
-                id: `904840051085705227`,
+                id: `909504694861324339`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -114,7 +114,7 @@ module.exports = {
                 }],
             },
             {
-                id: `904840051085705228`,
+                id: `909504694861324341`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -122,7 +122,7 @@ module.exports = {
                 }],
             },
             {
-                id: `904840051085705231`,
+                id: `909504694861324342`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -130,7 +130,7 @@ module.exports = {
                 }],
             },
             {
-                id: `908106687792181340`,
+                id: `909504694861324343`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -138,7 +138,7 @@ module.exports = {
                 }],
             },
             {
-                id: `908106687792181341`,
+                id: `909504694861324346`,
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',

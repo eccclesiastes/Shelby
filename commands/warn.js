@@ -8,7 +8,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('warn')
         .setDescription('Warns a user by DMing them.')
-        .setDefaultPermission(false)
         .addUserOption(option => 
             option.setName('user')
                     .setDescription('The user to be warned.')
@@ -23,6 +22,7 @@ module.exports = {
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
             const guildID = interaction.guildId;
             const pfp = memberTarger.displayAvatarURL();
+            console.log(interaction.commandId);
     
             const modEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')

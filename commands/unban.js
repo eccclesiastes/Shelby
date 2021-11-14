@@ -13,7 +13,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('unban')
         .setDescription('Unbans a user.')
-        .setDefaultPermission(false)
         .addStringOption(option => 
             option.setName('userid')
                     .setDescription('The user to unban.')
@@ -93,6 +92,7 @@ module.exports = {
                 embeds: [invalid],
                 ephemeral: true,
                 });
+                console.log(interaction.commandId);
             };
         };
     },

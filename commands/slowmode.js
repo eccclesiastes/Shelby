@@ -8,7 +8,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('slowmode')
         .setDescription('Sets the slowmode for a channel.')
-        .setDefaultPermission(false)
         .addIntegerOption(option =>
             option.setName('seconds')
                     .setDescription('How many seconds slowmode to apply.')
@@ -33,6 +32,7 @@ module.exports = {
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
             const guildID = interaction.guildId;
             const pfp = interaction.member.displayAvatarURL();
+            console.log(interaction.commandId);
 
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')

@@ -13,7 +13,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('nickname')
         .setDescription('Sets the nickname for a user.')
-        .setDefaultPermission(false)
         .addUserOption(option =>
             option.setName('user')
                     .setDescription('The user to apply a nickname to.')
@@ -45,6 +44,7 @@ module.exports = {
             const pfp = memberTarger.displayAvatarURL();
             const owner = interaction.guild.fetchOwner();
             const getOwner = (await owner).id;
+            console.log(interaction.commandId);
 
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')

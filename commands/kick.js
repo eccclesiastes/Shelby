@@ -13,7 +13,6 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('kick')
         .setDescription('Kicks a user.')
-        .setDefaultPermission(false)
         .addUserOption(option => 
             option.setName('user')
                     .setDescription('The user to kick.')
@@ -40,6 +39,7 @@ module.exports = {
         const owner = interaction.guild.fetchOwner();
         const pfp = memberTarger.displayAvatarURL();
         const getOwner = (await owner).id;
+        console.log(interaction.commandId);
 
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')

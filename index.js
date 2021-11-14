@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const ms = require('ms');
 const { link } = require('fs');
 const fs = require('fs');
+// module.exports = require('./deploy-commands.js');
 dotenv.config();
 
 const client = new DiscordJS.Client({

@@ -26,7 +26,7 @@ module.exports = {
 
     const fullPermissions = [
         {
-            id: '904840051039551520',
+            id: '909504694467051543',
             permissions: [{
                 id: ownerPerm,
                 type: 'USER',

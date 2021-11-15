@@ -24,18 +24,30 @@ module.exports = {
 
     client.channels.cache.get(join).send({embeds: [embed] });
 
-    const fullPermissions = [
-        {
-            id: '909504694467051543',
-            permissions: [{
-                id: ownerPerm,
-                type: 'USER',
-                permission: true,
-            }],
-        },
-    ];
+    try {
+        const commands = await client.application.commands.fetch();
+        let commandsByName = new Map();
+        const iterator = commands.values();
+        for (const entry of iterator) {
+            commandsByName.set(entry.name, entry.id);
+        };
+    
+        const fullPermissions = [
+            {
+                id: commandsByName.get('config'),
+                permissions: [{
+                    id: ownerPerm,
+                    type: 'USER',
+                    permission: true,
+                }],
+            },
+        ];
 
     client.guilds.cache.get(guild.id).commands.permissions.set({ fullPermissions });
+
+    } catch (e) {
+        console.error(e);
+    } 
 
     ow.send({ embeds: [ownerEmbed] });
 	},

@@ -8,6 +8,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('config')
         .setDescription('Configuration command for setting logging channel and staff role. (Owner Only)')
+        .setDefaultPermission(false)
         .addRoleOption(option =>
             option.setName('moderator_role')
                     .setDescription('The role that can use the moderation commands.')

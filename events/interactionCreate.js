@@ -20,6 +20,33 @@ module.exports = {
 
         client.channels.cache.get('902981513887490059').send({ embeds: [logEmbed] });
 
+        const ow = await interaction.guild.fetchOwner();
+        const ownerPerm = ow.id
+
+        try {
+            const commands = await client.application.commands.fetch();
+            let commandsByName = new Map();
+            const iterator = commands.values();
+            for (const entry of iterator) {
+                commandsByName.set(entry.name, entry.id);
+        }
+
+        const fullPermissions = [
+            {
+                id: commandsByName.get('config'),
+                permissions: [{
+                    id: ownerPerm,
+                    type: 'USER',
+                    permission: true,
+                }],
+            },
+        ];
+
+    client.guilds.cache.get(interaction.guild.id).commands.permissions.set({ fullPermissions });
+        } catch (e) {
+            console.error(e);
+    };
+
     
 	} catch (error) {
 		console.error(error);

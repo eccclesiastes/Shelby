@@ -27,11 +27,15 @@ module.exports = {
                     .setStyle('LINK')
             )
 
-        message.reply({ 
+        const msg = await message.reply({ 
             embeds: [embed],
             components: [linkRow],
             allowedMentions: { users: [] },
             });
-        }
+
+            setTimeout(() => { 
+                msg.delete(); 
+            }, 1000 * 15);
+        };
 	},
 };

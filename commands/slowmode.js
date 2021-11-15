@@ -8,6 +8,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('slowmode')
         .setDescription('Sets the slowmode for a channel.')
+        .setDefaultPermission(false)
         .addIntegerOption(option =>
             option.setName('seconds')
                     .setDescription('How many seconds slowmode to apply.')

@@ -39,8 +39,7 @@ module.exports = {
                 .addField('Log channel:', `${interaction.options.getChannel('logging_channel')}`, true)
                 .addField('Moderator role:', `${interaction.options.getRole('moderator_role')}`, true)
 
-        await interaction.deferReply({ ephemeral: true });  
-        console.log(interaction.commandId);
+        await interaction.deferReply({ ephemeral: true });
 
         connection.execute(`SELECT * FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
@@ -64,9 +63,17 @@ module.exports = {
             };
         });
 
+        try {
+            const commands = await client.application.commands.fetch();
+            let commandsByName = new Map();
+            const iterator = commands.values();
+            for (const entry of iterator) {
+                commandsByName.set(entry.name, entry.id);
+            };
+
         const fullPermissions = [
             {
-                id: `909504694467051542`,
+                id: commandsByName.get('ban'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -74,7 +81,7 @@ module.exports = {
                 }],
             },
             {
-                id: `909504694467051546`,
+                id: commandsByName.get('kick'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -82,7 +89,7 @@ module.exports = {
                 }],
             },
             {
-                id: `909504694467051547`,
+                id: commandsByName.get('mute'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -90,7 +97,7 @@ module.exports = {
                 }],
             },
             {
-                id: `909504694467051548`,
+                id: commandsByName.get('nickname'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -98,7 +105,7 @@ module.exports = {
                 }],
             },
             {
-                id: `909504694861324338`,
+                id: commandsByName.get('purge'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -106,7 +113,7 @@ module.exports = {
                 }],
             },
             {
-                id: `909504694861324339`,
+                id: commandsByName.get('role'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -114,7 +121,7 @@ module.exports = {
                 }],
             },
             {
-                id: `909504694861324341`,
+                id: commandsByName.get('slowmode'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -122,7 +129,7 @@ module.exports = {
                 }],
             },
             {
-                id: `909504694861324342`,
+                id: commandsByName.get('unban'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -130,7 +137,7 @@ module.exports = {
                 }],
             },
             {
-                id: `909504694861324343`,
+                id: commandsByName.get('unmute'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -138,7 +145,7 @@ module.exports = {
                 }],
             },
             {
-                id: `909504694861324346`,
+                id: commandsByName.get('warn'),
                 permissions: [{
                     id: roleId,
                     type: 'ROLE',
@@ -147,10 +154,9 @@ module.exports = {
             },
         ];
 
-    try {
-            client.guilds.cache.get(guildID).commands.permissions.set({ fullPermissions });
-        } catch(e) {
-          console.log(e);
+        client.guilds.cache.get(guildID).commands.permissions.set({ fullPermissions });
+    } catch (e) {
+        console.error(e);
     };
 
             interaction.editReply({

@@ -13,6 +13,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('nickname')
         .setDescription('Sets the nickname for a user.')
+        .setDefaultPermission(false)
         .addUserOption(option =>
             option.setName('user')
                     .setDescription('The user to apply a nickname to.')

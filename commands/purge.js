@@ -13,6 +13,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('purge')
         .setDescription('Purges a given number of messages.')
+        .setDefaultPermission(false)
         .addNumberOption(option =>
             option.setName('messages')
                     .setDescription('Amount of messages.')

@@ -8,6 +8,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('warn')
         .setDescription('Warns a user by DMing them.')
+        .setDefaultPermission(false)
         .addUserOption(option => 
             option.setName('user')
                     .setDescription('The user to be warned.')

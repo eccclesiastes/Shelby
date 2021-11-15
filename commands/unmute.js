@@ -56,6 +56,8 @@ module.exports = {
 
         if (memberTarger.roles.cache.has(muteRole.id)) {
 
+        await memberTarger.roles.remove(muteRole.id);
+
         connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
             console.log(result);
@@ -84,8 +86,6 @@ module.exports = {
                 channel.send({embeds:[logEmbed]});
             };
         });
-
-        await memberTarger.roles.remove(muteRole.id);
 
             interaction.editReply({
                 embeds: [embed],

@@ -18,7 +18,7 @@ module.exports = {
         });
 
         interaction.editReply({
-            content: `🏓 Pong! \`${client.ws.ping}ms\``,
+            content: `🏓 Pong! \`${Date.now() - msg.createdTimestamp}ms\``,
             ephemeral: true,
         });
     },

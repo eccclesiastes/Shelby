@@ -16,17 +16,6 @@ for (const file of commandFiles) {
 
 const rest = new REST({ version: '9' }).setToken(token);
 
-(async () => {
-	try {
-		console.log('Started refreshing application (/) commands.');
-
-		await rest.put(
-			Routes.applicationCommands(clientId),
-			{ body: commands },
-		);
-
-		console.log('Successfully reloaded application (/) commands.');
-	} catch (error) {
-		console.error(error);
-	}
-})();
+rest.put(Routes.applicationCommands(clientId), { body: commands })
+	.then(() => console.log('Successfully registered application commands.'))
+	.catch(console.error);

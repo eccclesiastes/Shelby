@@ -52,16 +52,12 @@ module.exports = {
         console.log(interaction.commandId);
 
         if (muteRole === undefined) {
-            const embed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
-                    .setTitle(`Unable to find 'Muted' role`)
-                    .setDescription(`<:shelbyFailure:908851692408283136> **| Please make sure there is a 'Muted' role before executing this command again! |** `)
-
-            interaction.editReply({
-                embeds: [embed],
-                ephemeral: true,
-            });
-        } else {
+            interaction.guild.roles.create({
+                name: 'Muted',
+                permissions: [],
+                color: "#000000",
+            })
+        }
 
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
@@ -168,8 +164,7 @@ module.exports = {
             interaction.editReply({
                 embeds: [alreadyMuted],
                 ephemeral: true,
-                        });
-                    };
+                    });
                 };
             } catch (error) {
                 const rolesErrorEmbed = new DiscordJS.MessageEmbed()

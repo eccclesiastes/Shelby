@@ -99,7 +99,7 @@ module.exports = {
                 });
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setAuthor(`${memberTarger.user.tag} was banned`, `${pfp}`)
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)

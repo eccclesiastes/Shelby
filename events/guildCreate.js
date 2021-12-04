@@ -3,7 +3,7 @@ const join = '898587285111603221';
 
 module.exports = {
 	name: 'guildCreate',
-	async execute(guild, client) {
+	async execute(guild, client, rateLimitData) {
         const ow = await guild.fetchOwner();
 		const owner = ow.user.tag;
     const ownerPerm = ow.id;

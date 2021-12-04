@@ -4,7 +4,7 @@ const join = '898587285111603221';
 
 module.exports = {
 	name: 'messageCreate',
-	async execute(message, client) {
+	async execute(message, client, rateLimitData) {
         if (message.mentions.users.has('898229527761788990')) {
 
     const embed = new DiscordJS.MessageEmbed()

@@ -9,10 +9,10 @@ module.exports = {
     const ownerPerm = ow.id;
 
     const ownerEmbed = new DiscordJS.MessageEmbed()
-        .setAuthor('Thank you for inviting Shelby', 'https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp')
+        .setAuthor({ name: 'Thank you for inviting Shelby', iconURL: 'https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp'})
         .setColor('#b8e4fd')
         .setDescription('Thank you for inviting Shelby! Please find all the information you need on setting Shelby up by using \`/setup\`. You can also get a full list of all the commands by using \`/help\`. Thank you for your support! <3')
-        .setFooter('Made with <3 by dceu#0001')
+        .setFooter({ text: 'Made with <3 by dceu#0001' })
 
     const embed = new DiscordJS.MessageEmbed()
         .setTitle('\:white_check_mark: Invited to server')

@@ -8,10 +8,10 @@ module.exports = {
         if (message.mentions.users.has('898229527761788990')) {
 
     const embed = new DiscordJS.MessageEmbed()
-        .setAuthor("Hey, I'm Shelby", 'https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp')
+        .setAuthor({ name: "Hey, I'm Shelby", iconURL: 'https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp' })
         .setColor('#2f3136')
         .setDescription(`I'm a moderation dedicated bot. My prefix will always be \`/\` \n \n For a full list of my commands, please use \`/help\``)
-        .setFooter('Made with <3 by dceu#0001')
+        .setFooter({ text: 'Made with <3 by dceu#0001' })
 
         const linkRow = new MessageActionRow()
             .addComponents(

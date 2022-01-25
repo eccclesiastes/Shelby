@@ -6,7 +6,7 @@ const { MessageButton } = require('discord.js');
 const rejected = new DiscordJS.MessageEmbed()
             .setColor('#2f3136')
             .setTitle('Unable to take action')
-            .setDescription(`<:shelbyFailure:908851692408283136> **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
+            .setDescription(`<:shelbyFailure:911377751548755990> **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
 
 module.exports = {
     data: new SlashCommandBuilder()

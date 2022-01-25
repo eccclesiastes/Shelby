@@ -28,7 +28,7 @@ module.exports = {
         const respondEmbed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
                 .setAuthor({ name: 'Successfully set staff role and log channel', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`})
-                .setDescription('<:shelbySuccess:908788558305820713> **| Please use /config again should you change the logging channel and/or moderator role |**')
+                .setDescription('<:shelbySuccess:911377269640028180> **| Please use /config again should you change the logging channel and/or moderator role |**')
                 .addField('Log channel:', `${interaction.options.getChannel('logging_channel')}`, true)
                 .addField('Moderator role:', `${interaction.options.getRole('moderator_role')}`, true)
 
@@ -159,7 +159,7 @@ module.exports = {
         } else {
             const respondEmbed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setDescription(`<:shelbyFailure:908851692408283136> **| Please make sure the logging channel is a text channel before using this command again |** `)
+                .setDescription(`<:shelbyFailure:911377751548755990> **| Please make sure the logging channel is a text channel before using this command again |** `)
 
             interaction.reply({
                 embeds: [respondEmbed],

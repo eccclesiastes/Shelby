@@ -15,7 +15,7 @@ module.exports = {
         .setFooter({ text: 'Made with <3 by dceu#0001' })
 
     const embed = new DiscordJS.MessageEmbed()
-        .setTitle('\:white_check_mark: Invited to server')
+        .setTitle('<:shelbySuccess:911377269640028180> Invited to server')
         .setColor('#2f3136')
         .addField(`Name`, `\n ${guild.name}\n`, true)
         .addField(`ID`, `\n ${guild.id}\n`, true)

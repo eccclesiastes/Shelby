@@ -22,20 +22,12 @@ module.exports = {
         const channelID = interaction.options.getChannel('logging_channel').id;
         const roleId = interaction.options.getRole('moderator_role').id;
         const channel1 = interaction.options.getChannel('logging_channel');
-        // const banCommand = await client.application?.commands.fetch('904840051039551519').applicationId;
-        // const kickCommand = await client.application?.commands.fetch('904840051039551523').applicationId;
-        // const muteCommand = await client.application?.commands.fetch('904840051039551524').applicationId;
-        // const purgeCommand = await client.application?.commands.fetch('904840051039551526').applicationId;
-        // const roleCommand = await client.application?.commands.fetch('904840051039551527').applicationId;
-        // const unbanCommand = await client.application?.commands.fetch('904840051085705227').applicationId;
-        // const unmuteCommand = await client.application?.commands.fetch('904840051085705228').applicationId;
-        // const warnCommand = await client.application?.commands.fetch('904840051085705231').applicationId;
-
+        
         if (channel1.type === 'GUILD_TEXT') {
 
         const respondEmbed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor('Successfully set staff role and log channel', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
+                .setAuthor({ name: 'Successfully set staff role and log channel', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`})
                 .setDescription('<:shelbySuccess:908788558305820713> **| Please use /config again should you change the logging channel and/or moderator role |**')
                 .addField('Log channel:', `${interaction.options.getChannel('logging_channel')}`, true)
                 .addField('Moderator role:', `${interaction.options.getRole('moderator_role')}`, true)

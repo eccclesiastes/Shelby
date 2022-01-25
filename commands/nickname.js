@@ -49,7 +49,7 @@ module.exports = {
 
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor('Nickname set', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
+                    .setAuthor({ name: 'Nickname set', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:908788558305820713> **| Nickname for ${memberTarger}\`(${memberTarger.user.tag})\` has been set to \`${nicknameTarger}\`: ${reasonTarger} |** `)
 
             await interaction.deferReply({ ephemeral: true });
@@ -80,7 +80,7 @@ module.exports = {
                 } else {  
                     const logEmbed = new DiscordJS.MessageEmbed()
                         .setColor('#b8e4fd')
-                        .setAuthor(`${memberTarger.user.tag} set new display name`, `${pfp}`)
+                        .setAuthor({ name: `${memberTarger.user.tag} set new display name`, iconURL: `${pfp}` })
                         .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                         .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                         .addField(`Nickname`, `${nicknameTarger}`, true)

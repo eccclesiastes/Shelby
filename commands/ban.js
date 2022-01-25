@@ -52,7 +52,7 @@ module.exports = {
 
            const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor('Member banned', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
+                .setAuthor({ name: 'Member banned', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                 .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been banned: ${reasonTarger} |** `);
 
             const actionTaken = new DiscordJS.MessageEmbed()
@@ -100,7 +100,7 @@ module.exports = {
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#b8e4fd')
-                    .setAuthor(`${memberTarger.user.tag} was banned`, `${pfp}`)
+                    .setAuthor({ name: `${memberTarger.user.tag} was banned`, iconURL: `${pfp}` })
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)
@@ -138,7 +138,7 @@ module.exports = {
                         } else {  
                             const logEmbed = new DiscordJS.MessageEmbed()
                                 .setColor('#b8e4fd')
-                                .setAuthor(`${memberTarger.user.tag} was banned`, `${pfp}`)
+                                .setAuthor({ name: `${memberTarger.user.tag} was banned`, iconURL: `${pfp}` })
                                 .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                                 .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                                 .addField(`Reason`, `${reasonTarger}`, true)

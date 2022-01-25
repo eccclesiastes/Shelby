@@ -16,7 +16,7 @@ module.exports = {
     
             const embed = new DiscordJS.MessageEmbed()
                     .setThumbnail(pfp)
-                    .setAuthor(`${memberTarger.user.tag} / ${(await memberTarger).id}`, `${pfp}`)
+                    .setAuthor({ name: `${memberTarger.user.tag} / ${(await memberTarger).id}`, iconURL: `${pfp}` })
                     .setColor('#2f3136')
                     .addField(`Created at`, `\n <t:${Math.round(memberTarger.user.createdTimestamp / 1000)}:D>`, true)
                     .addField(`Joined at`, `\n <t:${Math.round(memberTarger.joinedTimestamp / 1000)}:D>`, true)

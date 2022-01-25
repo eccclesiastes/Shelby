@@ -44,7 +44,7 @@ module.exports = {
 
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor('Member kicked', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
+                .setAuthor({ name: 'Member kicked', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                 .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been kicked: ${reasonTarger} |** `);
 
         const actionTaken = new DiscordJS.MessageEmbed()
@@ -92,7 +92,7 @@ module.exports = {
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#b8e4fd')
-                    .setAuthor(`${memberTarger.user.tag} was kicked`, `${pfp}`)
+                    .setAuthor({ name: `${memberTarger.user.tag} was kicked`, iconURL: `${pfp}` })
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)

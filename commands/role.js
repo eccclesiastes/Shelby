@@ -25,6 +25,7 @@ module.exports = {
         .addStringOption(option => 
             option.setName('reason')
                     .setDescription('The reason the role is being added/removed.')
+                    .setAutocomplete(true)
                     .setRequired(false)),
     async execute(client, interaction) {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
@@ -50,12 +51,12 @@ module.exports = {
     
             const addedEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor('Role added', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
+                    .setAuthor({ name: 'Role added', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been added to the role ${roleTarger}: ${reasonTarger} |** `)
     
             const removedEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor('Role removed', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
+                    .setAuthor({ name: 'Role removed', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been removed from the role ${roleTarger}: ${reasonTarger} |** `)
     
             if (!memberTarger.roles.cache.has(roleTarger.id)) {
@@ -78,7 +79,7 @@ module.exports = {
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#b8e4fd')
-                    .setAuthor(`${memberTarger.user.tag} granted role`, `${pfp}`)
+                    .setAuthor({ name: `${memberTarger.user.tag} granted role`, iconURL: `${pfp}` })
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Role`, `${roleTarger}`, true)
@@ -115,7 +116,7 @@ module.exports = {
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#b8e4fd')
-                    .setAuthor(`${memberTarger.user.tag} role removed`, `${pfp}`)
+                    .setAuthor({ name: `${memberTarger.user.tag} role removed`, iconURL: `${pfp}` })
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Role`, `${roleTarger}`, true)

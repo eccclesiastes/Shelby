@@ -37,7 +37,7 @@ module.exports = {
 
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor('Slowmode set', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
+                    .setAuthor({ name: 'Slowmode set', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:908788558305820713> **| Slowmode has been set to ${timeTarger} seconds for this channel |** `)
 
             await interaction.deferReply({ ephemeral: true });
@@ -61,7 +61,7 @@ module.exports = {
                 } else {  
                     const logEmbed = new DiscordJS.MessageEmbed()
                         .setColor('#b8e4fd')
-                        .setAuthor(` ${interaction.user.tag} set slowmode`, `${pfp}`)
+                        .setAuthor({ name: ` ${interaction.user.tag} set slowmode`, iconURL: `${pfp}` })
                         .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                         .addField(`Seconds`, `${timeTarger} seconds`, true)
                         .addField(`Channel`, `${interaction.channel}`, true)

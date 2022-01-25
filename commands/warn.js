@@ -27,7 +27,7 @@ module.exports = {
     
             const modEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor('Member warned', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
+                    .setAuthor({ name: 'Member warned', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:908788558305820713> **| ${memberTarger} has been warned for: ${reasonTarger} |**`)
     
             const userEmbed = new DiscordJS.MessageEmbed()
@@ -56,7 +56,7 @@ module.exports = {
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#b8e4fd')
-                    .setAuthor(`${memberTarger.user.tag} was warned`, `${pfp}`)
+                    .setAuthor({ name: `${memberTarger.user.tag} was warned`, iconURL: `${pfp}` })
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `${memberTarger} / \`${memberTarger.id}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)

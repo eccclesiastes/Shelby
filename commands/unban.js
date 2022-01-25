@@ -45,7 +45,7 @@ module.exports = {
     
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
-                    .setAuthor('Member unbanned', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`)
+                    .setAuthor({ name: 'Member unbanned', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:908788558305820713> **| ${guy.tag} has been unbanned: ${reasonTarger} |** `)
 
             await interaction.guild.members.unban(memberTarger);
@@ -67,7 +67,7 @@ module.exports = {
             } else {  
                 const logEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#b8e4fd')
-                    .setAuthor(`${guy.tag} was unbanned`, pfp)
+                    .setAuthor({ name: `${guy.tag} was unbanned`, iconURL: pfp })
                     .addField(`Invoker`, `${interaction.member} / \`${interaction.user.tag}\``, true)
                     .addField(`Target`, `<@${memberTarger}> / \`${memberTarger}\``, true)
                     .addField(`Reason`, `${reasonTarger}`, true)

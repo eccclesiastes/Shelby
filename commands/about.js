@@ -10,10 +10,10 @@ module.exports = {
     async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
                 .setColor('#2f3136')
-                .setAuthor('About Shelby', `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`) 
+                .setAuthor({ name: 'About Shelby', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` }) 
                 .setDescription('Shelby is an advanced **moderation dedicated** bot. Start your **better moderation experience** by interacting with the buttons below to **invite** me.')
                 .addField('Creator', '**[dceu#0001](https://github.com/qtdceu)**')
-                .setFooter('Made with <3 by dceu#0001')
+                .setFooter({ text: 'Made with <3 by dceu#0001'})
 
         const linkRow = new MessageActionRow()
             .addComponents(

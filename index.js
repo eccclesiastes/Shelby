@@ -14,6 +14,15 @@ const client = new DiscordJS.Client({
     ]
 });
 
+const { Player } = require('discord-music-player');
+const player = new Player(client, {
+    quality: "high",
+    deafenOnJoin: true,
+    leaveOnEmpty: true,
+});
+
+client.player = player; 
+
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -35,7 +44,7 @@ for (const file of eventFiles) {
 
 setInterval(() => {
     const guildNumbers = client.guilds.cache.size;
-    client.user.setActivity(`${guildNumbers} Servers | /setup`, {type: "WATCHING" });
+    client.user.setActivity(`${guildNumbers} Servers | /help`, {type: "WATCHING" });
 }, 1000 * 360);
 
 module.exports = client;

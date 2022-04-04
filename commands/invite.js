@@ -4,7 +4,7 @@ const { MessageActionRow } = require('discord.js');
 const { MessageButton } = require('discord.js');
 
 const rejected = new DiscordJS.MessageEmbed()
-            .setColor('#2f3136')
+            .setColor('#b8e4fd')
             .setTitle('Unable to take action')
             .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
 
@@ -14,7 +14,7 @@ module.exports = {
         .setDescription('Gives the invite link of the bot.'),
     async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
                 .setAuthor({ name: `Invite Shelby to your server!`, iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` }) 
                 .setFooter({ text: 'Made with <3 by dceu#0001' })
 

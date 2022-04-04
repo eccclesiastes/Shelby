@@ -26,7 +26,7 @@ module.exports = {
         if (channel1.type === 'GUILD_TEXT') {
 
         const respondEmbed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
                 .setAuthor({ name: 'Successfully set staff role and log channel', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp`})
                 .setDescription('<:shelbySuccess:911377269640028180> **| Please use /config again should you change the logging channel and/or moderator role |**')
                 .addField('Log channel:', `${interaction.options.getChannel('logging_channel')}`, true)
@@ -36,40 +36,35 @@ module.exports = {
 
         connection.execute(`SELECT * FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
-            console.log(result);
     
             if(result == null) { 
                 connection.execute(`INSERT INTO configuration (guild_id, staff_role_id, log_channel_id) VALUES (?, ?, ?)`, [guildID, roleId, channelID], function (err, result) {
                     if (err) { throw err; };
-                    console.log("Inserted " +  result.affectedRows + " records");
                 });
             } else {  
-                connection.execute(`DELETE FROM configuration WHERE guild_id = ?`, [guildID], function (err, result) {
+                connection.execute(`DELETE FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
                     if (err) { throw err; }
-                    console.log("Deleted " +  result.affectedRows + " records");
                 });
 
                 connection.execute(`INSERT INTO configuration (guild_id, staff_role_id, log_channel_id) VALUES (?, ?, ?)`, [guildID, roleId, channelID], function (err, result) {
                     if (err) { throw err; };
-                    console.log("Inserted " +  result.affectedRows + " records");
                 });
             };
         });
 
-        try {
-            const commands = await client.application.commands.fetch();
-            let commandsByName = new Map();
-            const iterator = commands.values();
-            for (const entry of iterator) {
-                commandsByName.set(entry.name, entry.id);
-            };
+        const commands = await client.application.commands.fetch();
+        let commandsByName = new Map();
+        const iterator = commands.values();
+        for (const entry of iterator) {
+            commandsByName.set(entry.name, entry.id);
+        };
 
         const fullPermissions = [
             {
                 id: commandsByName.get('ban'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
@@ -77,7 +72,7 @@ module.exports = {
                 id: commandsByName.get('kick'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
@@ -85,7 +80,7 @@ module.exports = {
                 id: commandsByName.get('mute'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
@@ -93,7 +88,7 @@ module.exports = {
                 id: commandsByName.get('nickname'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
@@ -101,7 +96,7 @@ module.exports = {
                 id: commandsByName.get('purge'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
@@ -109,7 +104,7 @@ module.exports = {
                 id: commandsByName.get('role'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
@@ -117,7 +112,7 @@ module.exports = {
                 id: commandsByName.get('slowmode'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
@@ -125,7 +120,7 @@ module.exports = {
                 id: commandsByName.get('unban'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
@@ -133,7 +128,7 @@ module.exports = {
                 id: commandsByName.get('unmute'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
@@ -141,16 +136,14 @@ module.exports = {
                 id: commandsByName.get('warn'),
                 permissions: [{
                     id: roleId,
-                    type: 'ROLE',
+                    type: 1,
                     permission: true,
                 }],
             },
         ];
 
-        client.guilds.cache.get(guildID).commands.permissions.set({ fullPermissions });
-    } catch (e) {
-        console.error(e);
-    };
+        const permissions = client.guilds.cache.get(guildID).commands.permissions
+        const result = await permissions.set({ fullPermissions: fullPermissions });
 
             interaction.editReply({
                 embeds: [respondEmbed],
@@ -158,7 +151,7 @@ module.exports = {
             });
         } else {
             const respondEmbed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
                 .setDescription(`<:shelbyFailure:911377751548755990> **| Please make sure the logging channel is a text channel before using this command again |** `)
 
             interaction.reply({

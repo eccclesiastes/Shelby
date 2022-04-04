@@ -9,7 +9,7 @@ module.exports = {
         .setDescription('Instructions on how to setup the bot.'),
     async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
                 .setAuthor({ name: 'How to setup Shelby', iconURL: 'https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp' })
                 .addField('1. Creating roles and channels', 'Please create a moderator role that can use all the moderation commands, a \'Muted\' role which the bot applies to muted members, and a logging channel where all activity of this bot is logged.')
                 .addField('2. Use \`/config\`', 'Please use \`/config\` to set the moderator role and log channel.')

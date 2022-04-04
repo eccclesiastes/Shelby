@@ -5,7 +5,7 @@ const config = require('../databaseConfig');
 const connection = config.connection;
 
 const rejected = new DiscordJS.MessageEmbed()
-            .setColor('#2f3136')
+            .setColor('#b8e4fd')
             .setTitle('Unable to take action')
             .setDescription(`<:shelbyFailure:911377751548755990> **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** `)
 
@@ -31,7 +31,7 @@ module.exports = {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
                 .setDescription(`<:shelbyFailure:911377751548755990> **| Please make sure I have the \`Manage Roles\` permission before executing this command! |** `)
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
 
         if (!interaction.guild.me.permissions.has(`MANAGE_ROLES`)) {
             interaction.reply({
@@ -49,12 +49,12 @@ module.exports = {
             const pfp = memberTarger.displayAvatarURL();
     
             const addedEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setAuthor({ name: 'Role added', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:911377269640028180> **| ${memberTarger} has been added to the role ${roleTarger}: ${reasonTarger} |** `)
     
             const removedEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setAuthor({ name: 'Role removed', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:911377269640028180> **| ${memberTarger} has been removed from the role ${roleTarger}: ${reasonTarger} |** `)
     
@@ -66,7 +66,7 @@ module.exports = {
     
             if(result == null) { 
             const logReject = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setTitle('Unable to log action')
                     .setDescription(`<:shelbyFailure:911377751548755990> **| Action cannot be logged as there has been no logging channel found. |** ❌`)
 
@@ -102,7 +102,7 @@ module.exports = {
     
             if(result == null) { 
             const logReject = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setTitle('Unable to log action')
                     .setDescription(`<:shelbyFailure:911377751548755990> **| Action cannot be logged as there has been no logging channel found. |** ❌`)
 
@@ -133,7 +133,7 @@ module.exports = {
             };
         } catch (err) {
             const errorEmbed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setTitle('Unable to add/remove role')
                     .setDescription(`<:shelbyFailure:911377751548755990> **| Action cannot be taken as my highest role isn't higher than the role being added/removed. |** `)
     

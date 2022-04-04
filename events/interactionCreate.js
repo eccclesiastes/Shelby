@@ -52,7 +52,7 @@ module.exports = {
 		console.error(error);
 
         const errorEmbed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
                 .setDescription(`<:shelbyFailure:911377751548755990> **| Unknown Error |** `)
 
 		await interaction.followUp({ 

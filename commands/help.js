@@ -9,7 +9,7 @@ module.exports = {
         .setDescription(`Gives guidance on the bot's commands.`),
     async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
                 .setAuthor({ name: `Shelby's Commands`, iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` }) 
                 .setDescription(`To get a better understanding of the commands, please refer to the description provided under the command in auto-complete mode. Additionally, you can find additional information on the parameters of the command there. For a complete setup guide, please use \`/setup\`.`)
                 .addField('Moderation Commands', '`ban` • `kick` • `mute` • `purge` • `role` • `unban` • `unmute` • `warn` • `slowmode` • `nickname`')

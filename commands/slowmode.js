@@ -21,7 +21,7 @@ module.exports = {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
                 .setDescription(`<:shelbyFailure:911377751548755990> **| Please make sure I have the \`Manage Channels\` permission before executing this command! |** `)
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
 
         if (!interaction.guild.me.permissions.has(`MANAGE_CHANNELS`)) {
             interaction.reply({
@@ -36,7 +36,7 @@ module.exports = {
             
 
             const embed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setAuthor({ name: 'Slowmode set', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:911377269640028180> **| Slowmode has been set to ${timeTarger} seconds for this channel |** `)
 
@@ -49,7 +49,7 @@ module.exports = {
         
                 if(result == null) { 
                 const logReject = new DiscordJS.MessageEmbed()
-                        .setColor('#2f3136')
+                        .setColor('#b8e4fd')
                         .setTitle('Unable to log action')
                         .setDescription(`<:shelbyFailure:911377751548755990> **| Action cannot be logged as there has been no logging channel found. |** ❌`)
     

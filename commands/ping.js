@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const DiscordJS = require('discord.js');
 
 const rejected = new DiscordJS.MessageEmbed()
-            .setColor('#2f3136')
+            .setColor('#b8e4fd')
             .setTitle('Unable to take action')
             .setDescription(`❌ **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
 

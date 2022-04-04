@@ -16,7 +16,7 @@ module.exports = {
 
     const embed = new DiscordJS.MessageEmbed()
         .setTitle('<:shelbySuccess:911377269640028180> Invited to server')
-        .setColor('#2f3136')
+        .setColor('#b8e4fd')
         .addField(`Name`, `\n ${guild.name}\n`, true)
         .addField(`ID`, `\n ${guild.id}\n`, true)
         .addField(`Owner`, `\n ${owner} | \`${ownerPerm}\`\n`, true)

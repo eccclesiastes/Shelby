@@ -17,7 +17,7 @@ module.exports = {
             const embed = new DiscordJS.MessageEmbed()
                     .setThumbnail(pfp)
                     .setAuthor({ name: `${memberTarger.user.tag} / ${(await memberTarger).id}`, iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .addField(`Created at`, `\n <t:${Math.round(memberTarger.user.createdTimestamp / 1000)}:D>`, true)
                     .addField(`Joined at`, `\n <t:${Math.round(memberTarger.joinedTimestamp / 1000)}:D>`, true)
                     .addField('Roles', `\n ${memberTarger.roles.cache.map(r => r.toString()).join(" ")}`, true)

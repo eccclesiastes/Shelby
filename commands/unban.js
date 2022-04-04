@@ -5,7 +5,7 @@ const config = require('../databaseConfig');
 const connection = config.connection;
 
 const rejected = new DiscordJS.MessageEmbed()
-            .setColor('#2f3136')
+            .setColor('#b8e4fd')
             .setTitle('Unable to take action')
             .setDescription(`<:shelbyFailure:911377751548755990> **| Action cannot be taken as my highest role isn't higher than the target's highest role. |** ❌`)
 
@@ -26,7 +26,7 @@ module.exports = {
         const perm_bot_error_embed = new DiscordJS.MessageEmbed()
                 .setTitle(`Error`)
                 .setDescription(`<:shelbyFailure:911377751548755990> **| Please make sure I have the \`Ban Members\` permission before executing this command! |** `)
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
 
         if (!interaction.guild.me.permissions.has(`BAN_MEMBERS`)) {
             interaction.reply({
@@ -44,7 +44,7 @@ module.exports = {
             await interaction.deferReply({ ephemeral: true });
     
             const embed = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setAuthor({ name: 'Member unbanned', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` })
                     .setDescription(`<:shelbySuccess:911377269640028180> **| ${guy.tag} has been unbanned: ${reasonTarger} |** `)
 
@@ -55,7 +55,7 @@ module.exports = {
     
             if(result == null) { 
             const logReject = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setTitle('Unable to log action')
                     .setDescription(`<:shelbyFailure:911377751548755990> **| Action cannot be logged as there has been no logging channel found. |** ❌`)
 
@@ -84,7 +84,7 @@ module.exports = {
             });
     } catch (err) {
         const invalid = new DiscordJS.MessageEmbed()
-                    .setColor('#2f3136')
+                    .setColor('#b8e4fd')
                     .setTitle('Unable to unban')
                     .setDescription(`<:shelbyFailure:911377751548755990> **| Please provide a valid member to unban. |** `)
 

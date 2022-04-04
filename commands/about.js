@@ -9,7 +9,7 @@ module.exports = {
         .setDescription('About this bot.'),
     async execute(client, interaction) {
         const embed = new DiscordJS.MessageEmbed()
-                .setColor('#2f3136')
+                .setColor('#b8e4fd')
                 .setAuthor({ name: 'About Shelby', iconURL: `https://cdn.discordapp.com/avatars/898229527761788990/9045f776607eee7e0bfea538434ea8af.webp` }) 
                 .setDescription('Shelby is an advanced **moderation dedicated** bot. Start your **better moderation experience** by interacting with the buttons below to **invite** me.')
                 .addField('Creator', '**[dceu#0001](https://github.com/qtdceu)**')

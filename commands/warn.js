@@ -23,7 +23,6 @@ module.exports = {
             const reasonTarger = interaction.options.getString('reason') || 'No reason provided.';
             const guildID = interaction.guildId;
             const pfp = memberTarger.displayAvatarURL();
-            console.log(interaction.commandId);
     
             const modEmbed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
@@ -41,7 +40,6 @@ module.exports = {
 
             connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
-            console.log(result);
     
             if(result == null) { 
             const logReject = new DiscordJS.MessageEmbed()

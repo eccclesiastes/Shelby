@@ -49,7 +49,6 @@ module.exports = {
         const timeTarger = interaction.options.getString('time'); 
         const pfp = memberTarger.displayAvatarURL();
         const muteRole = interaction.guild.roles.cache.find(role => role.name === 'Muted');
-        console.log(interaction.commandId);
 
         if (muteRole === undefined) {
             interaction.guild.roles.create({
@@ -83,7 +82,6 @@ module.exports = {
 
             connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
                 if (err) { throw err; };
-                console.log(result);
         
                 if(result == null) { 
                 const logReject = new DiscordJS.MessageEmbed()
@@ -124,7 +122,6 @@ module.exports = {
 
         connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
-            console.log(result);
     
             if(result == null) { 
             const logReject = new DiscordJS.MessageEmbed()

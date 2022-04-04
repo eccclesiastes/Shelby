@@ -34,7 +34,6 @@ module.exports = {
             const amountTarger = interaction.options.getNumber('messages'); 
             const guildID = interaction.guildId;
             const pfp = interaction.member.displayAvatarURL();
-            console.log(interaction.commandId);
     
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
@@ -61,7 +60,6 @@ module.exports = {
 
             connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id=?`, [guildID], function (err, result) {
             if (err) { throw err; };
-            console.log(result);
     
             if(result == null) { 
             const logReject = new DiscordJS.MessageEmbed()

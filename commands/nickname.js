@@ -45,7 +45,6 @@ module.exports = {
             const pfp = memberTarger.displayAvatarURL();
             const owner = interaction.guild.fetchOwner();
             const getOwner = (await owner).id;
-            console.log(interaction.commandId);
 
             const embed = new DiscordJS.MessageEmbed()
                     .setColor('#2f3136')
@@ -65,7 +64,6 @@ module.exports = {
 
             connection.execute(`SELECT log_channel_id FROM configuration WHERE guild_id= ? `, [guildID], function (err, result) {
                 if (err) { throw err; };
-                console.log(result);
         
                 if(result == null) { 
                 const logReject = new DiscordJS.MessageEmbed()
